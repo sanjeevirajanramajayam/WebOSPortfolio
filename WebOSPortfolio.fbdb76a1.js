@@ -1,0 +1,2 @@
+function updateTime(){var e=dayjs().format("YYYY-MM-DD HH:mm A");document.getElementById("datetime").innerHTML=e}setInterval(updateTime,1e3),document.querySelectorAll(".desktop-icon").forEach(e=>{e.addEventListener("click",t=>{document.querySelectorAll(".desktop-icon").forEach(e=>{e.classList.remove("selected")}),e.classList.add("selected")})}),document.body.addEventListener("click",e=>{e.target.closest(".desktop-icon")||document.querySelectorAll(".desktop-icon").forEach(e=>{e.classList.remove("selected")})});
+//# sourceMappingURL=WebOSPortfolio.fbdb76a1.js.map
