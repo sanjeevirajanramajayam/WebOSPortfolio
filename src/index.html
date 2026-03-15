@@ -6,13 +6,57 @@
     <link rel="stylesheet" href="./index.css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+      rel="stylesheet"
+    />
+
     <script src="script.js" defer></script>
   </head>
-  <body class="bg-[url('./images/background.png')] bg-cover">
-    <div class="flex justify-between">
-      <p class>SR-OS</p>
-      <p id="datetime">6/21/2023 3:41 PM</p>
-      <div id="window" class="absolute top-1/2 left-1/2 -translate-1/2 w-1/2 h-1/2 border">My Window</div>
+  <body class="bg-[url('./images/background.png')] bg-cover h-screen">
+    <div class="inline-flex p-4 gap-6 flex-col items-center justify-center">
+      <div class="desktop-icon flex justify-center items-center flex-col">
+        <img src="./images/explorer-desktop-icon.png" class="w-10 h-10" />
+        <span class="text-white text-center">Explorer</span>
+      </div>
+      <div class="desktop-icon flex justify-center items-center flex-col">
+        <img src="./images/mailbox-desktop-icon.png" class="w-10 h-10" />
+        <span class="text-white text-center">Inbox</span>
+      </div>
+      <div class="desktop-icon flex justify-center items-center flex-col">
+        <img src="./images/computer-desktop-icon.png" class="w-10 h-10" />
+        <span class="text-white text-center">My Computer</span>
+      </div>
+      <div class="desktop-icon flex justify-center items-center flex-col">
+        <img src="./images/network-desktop-icon.png" class="w-10 h-10" />
+        <span class="text-white text-center">Network</span>
+      </div>
+      <div class="desktop-icon flex justify-center items-center flex-col">
+        <img src="./images/recycle-desktop-icon.png" class="w-10 h-10" />
+        <span class="text-white text-center">Recycle Bin</span>
+      </div>
+    </div>
+    <!-- <div class="h-full w-full">
+
+    </div> -->
+
+    <div class="taskbar w-full fixed bottom-0 p-1 bg-primary">
+      <div class="flex justify-between items-center">
+        <button
+          class="btn text-lg! items-center! px-1! inline-flex!"
+          type="button"
+        >
+          <img src="./images/start-icon.png" class="h-4 w-4 m-1" />
+          <span class="btn-text">Start</span>
+        </button>
+        <div class="divider m-1!"></div>
+        <div class="flex-1"></div>
+        <div class="divider m-1!"></div>
+
+        <div class="tray">
+          <span id="datetime" class="time">12:00 PM</span>
+        </div>
+      </div>
     </div>
   </body>
 </html>
