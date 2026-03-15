@@ -4292,7 +4292,7 @@ textarea[resize="horizontal"] {
  * And the sprite generator https://www.toptal.com/developers/css/sprite-generator/
  */
 
-.w95-file-alert{
+/* .w95-file-alert{
     width: 32px; height: 32px;
     background: url('../img/w95-icons-sprite.png') -10px -10px;
 }
@@ -4625,7 +4625,7 @@ textarea[resize="horizontal"] {
 .w95-cd {
     width: 32px; height: 32px;
     background: url('../img/w95-icons-sprite.png') -426px -166px;
-}
+} */
 
 .icon {
     text-align: center;
