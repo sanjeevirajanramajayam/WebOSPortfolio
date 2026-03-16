@@ -16,12 +16,27 @@ function dragElement(elmnt) {
   elmnt.onmouseup = stopDragging;
 
   function startDragging(e) {
+    if (
+      e.target.tagName === "INPUT" ||
+      e.target.tagName === "BUTTON" ||
+      e.target.tagName === "LABEL" ||
+      e.target.tagName === "A"
+    ) {
+      return;
+    }
+
     e.preventDefault();
+
+    const rect = elmnt.getBoundingClientRect();
+    elmnt.style.position = "fixed";
+    elmnt.style.top = rect.top + "px";
+    elmnt.style.left = rect.left + "px";
+    elmnt.style.margin = "0";
 
     initialX = e.clientX;
     initialY = e.clientY;
-
     document.onmousemove = dragging;
+    document.onmouseup = stopDragging;
   }
 
   function dragging(e) {
@@ -44,16 +59,16 @@ function dragElement(elmnt) {
     elmnt.style.left = newLeft + "px";
   }
 
-  // function dragging(e) {
-  //   e.preventDefault();
-  //   currentX = initialX - e.clientX;
-  //   currentY = initialY - e.clientY;
-  //   initialX = e.clientX;
-  //   initialY = e.clientY;
+  function dragging(e) {
+    e.preventDefault();
+    currentX = initialX - e.clientX;
+    currentY = initialY - e.clientY;
+    initialX = e.clientX;
+    initialY = e.clientY;
 
-  //   elmnt.style.top = elmnt.offsetTop - currentY + "px";
-  //   elmnt.style.left = elmnt.offsetLeft - currentX + "px";
-  // }
+    elmnt.style.top = elmnt.offsetTop - currentY + "px";
+    elmnt.style.left = elmnt.offsetLeft - currentX + "px";
+  }
 
   function stopDragging() {
     document.onmouseup = null;
@@ -125,9 +140,30 @@ function makeVisible(window) {
   const taskElement = document.querySelector(`[data-window="${window}"]`);
   taskElement.style.display = "block";
 }
-document.addEventListener("click", (e) => {
+document.addEventListener("dblclick", (e) => {
   const btn = e.target.closest("[data-windowsrc]");
   if (btn) {
     makeVisible(btn.dataset.windowsrc);
+  }
+});
+
+document.querySelectorAll(".desktop-icon").forEach((icon) => {
+  // icon.style.position = "fixed";
+  dragElement(icon, true);
+});
+
+document.querySelector(".login-submit").addEventListener("click", (e) => {
+  if (
+    document.querySelector("#username").value == "admin" &&
+    document.querySelector("#password").value == "1234"
+  ) {
+    document.querySelector(".login-window").style.display = "none";
+    const audio = new Audio("./audio/windows-95-startup-sound.mp3");
+    audio.play();
+    audio.addEventListener("ended", () => {
+      document.querySelector(".desktop").style.display = "block";
+    });
+  } else {
+    console.log("Wrong");
   }
 });
