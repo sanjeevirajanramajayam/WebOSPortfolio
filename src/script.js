@@ -15,6 +15,8 @@ function dragElement(elmnt) {
   elmnt.onmousedown = startDragging;
   elmnt.onmouseup = stopDragging;
 
+  var originalZIndex = elmnt.style.zIndex;
+
   function startDragging(e) {
     if (
       e.target.tagName === "INPUT" ||
@@ -26,12 +28,28 @@ function dragElement(elmnt) {
     }
 
     e.preventDefault();
+    const placeholder = document.createElement("div");
+
+    if (
+      elmnt.classList.contains("desktop-icon") &&
+      !elmnt.classList.contains("drag-clicked")
+    ) {
+      console.log(elmnt);
+      placeholder.style.width = elmnt.offsetWidth + "px";
+      placeholder.style.height = elmnt.offsetHeight + "px";
+      placeholder.style.display = "none";
+      placeholder.id = "drag-placeholder";
+      elmnt.parentNode.insertBefore(placeholder, elmnt);
+      elmnt.classList.add("drag-clicked");
+    }
 
     const rect = elmnt.getBoundingClientRect();
     elmnt.style.position = "fixed";
     elmnt.style.top = rect.top + "px";
     elmnt.style.left = rect.left + "px";
     elmnt.style.margin = "0";
+
+    placeholder.style.display = "block";
 
     initialX = e.clientX;
     initialY = e.clientY;
@@ -54,40 +72,27 @@ function dragElement(elmnt) {
 
     newTop = Math.max(0, Math.min(newTop, maxTop));
     newLeft = Math.max(0, Math.min(newLeft, maxLeft));
-
+    elmnt.style.zIndex = 9999;
     elmnt.style.top = newTop + "px";
     elmnt.style.left = newLeft + "px";
-  }
 
-  function dragging(e) {
-    e.preventDefault();
-    currentX = initialX - e.clientX;
-    currentY = initialY - e.clientY;
-    initialX = e.clientX;
-    initialY = e.clientY;
-
-    elmnt.style.top = elmnt.offsetTop - currentY + "px";
-    elmnt.style.left = elmnt.offsetLeft - currentX + "px";
+    if (elmnt.classList.contains("desktop-icon")) {
+      document.querySelectorAll(".desktop-icon").forEach((i) => {
+        i.classList.remove("selected");
+      });
+      elmnt.classList.add("selected");
+    }
   }
 
   function stopDragging() {
     document.onmouseup = null;
     document.onmousemove = null;
+    elmnt.style.zIndex = originalZIndex;
   }
 }
 
-// dragElement(document.getElementById("window"));
 document.querySelectorAll(".custom-window").forEach((elmnt) => {
   dragElement(elmnt);
-});
-
-document.querySelectorAll(".desktop-icon").forEach((element) => {
-  element.addEventListener("click", (e) => {
-    document.querySelectorAll(".desktop-icon").forEach((element) => {
-      element.classList.remove("selected");
-    });
-    element.classList.add("selected");
-  });
 });
 
 document.body.addEventListener("click", (e) => {
@@ -137,9 +142,21 @@ document.addEventListener("click", (e) => {
 function makeVisible(window) {
   const card = document.querySelector(`[data-title="${window}"]`);
   card.style.display = "block";
+
+  document.querySelectorAll("#window").forEach((element) => {
+    element.style.zIndex = 10;
+    element.closest(".card").classList.remove("card-tertiary");
+  });
+
+  card.style.zIndex = 9999;
+  card.closest(".card").classList.add("card-tertiary");
+
   const taskElement = document.querySelector(`[data-window="${window}"]`);
-  taskElement.style.display = "block";
+  if (taskElement) {
+    taskElement.style.display = "block";
+  }
 }
+
 document.addEventListener("dblclick", (e) => {
   const btn = e.target.closest("[data-windowsrc]");
   if (btn) {
@@ -148,8 +165,15 @@ document.addEventListener("dblclick", (e) => {
 });
 
 document.querySelectorAll(".desktop-icon").forEach((icon) => {
+  icon.addEventListener("click", (e) => {
+    console.log(e);
+    document.querySelectorAll(".desktop-icon").forEach((i) => {
+      i.classList.remove("selected");
+    });
+    icon.classList.add("selected");
+  });
   // icon.style.position = "fixed";
-  dragElement(icon, true);
+  dragElement(icon);
 });
 
 document.querySelector(".login-submit").addEventListener("click", (e) => {
@@ -160,10 +184,76 @@ document.querySelector(".login-submit").addEventListener("click", (e) => {
     document.querySelector(".login-window").style.display = "none";
     const audio = new Audio("./audio/windows-95-startup-sound.mp3");
     audio.play();
-    audio.addEventListener("ended", () => {
-      document.querySelector(".desktop").style.display = "block";
-    });
+    audio.addEventListener("ended", () => {});
+    document.querySelector(".desktop").style.display = "block";
   } else {
-    console.log("Wrong");
+    let error_card = document.querySelector(`[data-title=error]`);
+    const audio = new Audio("./audio/windows-95-error-sound-effect.mp3");
+    audio.play();
+    document.querySelector(".error-ok").addEventListener("click", (e) => {
+      error_card.style.display = "none";
+    });
+    error_card.style.display = "block";
+    document.querySelector(".login-window").style.zIndex = "10";
+    error_card.style.zIndex = "99999999";
+  }
+  // document.querySelector(".login-window").style.display = "none";
+  // const audio = new Audio("./audio/windows-95-startup-sound.mp3");
+  // audio.play();
+  // document.querySelector(".desktop").style.display = "block";
+});
+let width = 0;
+
+if (document.querySelector(".download-btn")) {
+  document.querySelector(".download-btn").addEventListener("click", (e) => {
+    e.target.parentElement.parentElement.querySelector(
+      ".download-text",
+    ).innerText = "Downloading Resume...";
+
+    const interval = setInterval(() => {
+      width += Math.floor(Math.random() * 0.1) + 0.1;
+      e.target.parentElement.parentElement.querySelector(
+        ".download-progress",
+      ).value = width;
+      if (width >= 1) {
+        let download_a = document.querySelector(".download-resume");
+        download_a.click();
+        width = 0;
+        e.target.parentElement.parentElement.querySelector(
+          ".download-progress",
+        ).value = width;
+        e.target.parentElement.parentElement.querySelector(
+          ".download-text",
+        ).innerText = "Download Resume";
+        console.log(width);
+        const taskElement = document.querySelector(`[data-window="resume"]`);
+        taskElement.style.display = "none";
+        document.querySelector("[data-title=resume]").style.display = "none";
+        clearInterval(interval);
+      }
+    }, 200);
+
+    // e.target.parentElement.parentElement.querySelector(".download-progress").value = 20;
+  });
+}
+console.log(width);
+document.querySelectorAll("#window").forEach((element) => {
+  element.addEventListener("click", () => {
+    document.querySelectorAll("#window").forEach((element) => {
+      element.style.zIndex = 10;
+      element.closest(".card").classList.remove("card-tertiary");
+    });
+    element.style.zIndex = 20;
+    element.closest(".card").classList.add("card-tertiary");
+  });
+});
+
+document.querySelector(".start-btn").addEventListener("click", (e) => {
+  console.log(document.querySelector(".menu-bar").style.display);
+
+  if (document.querySelector(".menu-bar").style.display === "") {
+    document.querySelector(".menu-bar").style.display = "flex";
+  } else {
+    document.querySelector(".menu-bar").style.display = "";
   }
 });

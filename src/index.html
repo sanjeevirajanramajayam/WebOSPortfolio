@@ -9,87 +9,22 @@
   <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
 
+  <!-- js-dos style sheet -->
+  <!-- <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css"> -->
+
+  <!-- js-dos -->
+  <!-- <script src="https://v8.js-dos.com/latest/js-dos.js"></script> -->
+
   <script src="script.js" defer></script>
 </head>
 
 <body style="background-image: url(&quot;./images/background.png&quot;)" class="bg-cover h-screen">
-  <div class="card fixed card-teritiary card-tertiary top-40 left-40 custom-window login-window" id="window" data-title="login">
-    <div class="card-header flex justify-between">
-      <span>Welcome to Windows</span>
-      <div class="window-buttons flex items-center justify-center">
-        <button class="btn btn-primary p-0! w-4 h-4" id="btn-minimize">
-          _
-        </button>
-        <button class="btn btn-primary p-0! w-4 h-4" id="btn-maximize">
-          □
-        </button>
-        <button class="btn btn-primary p-0! w-4 h-4" id="btn-close">✕</button>
-      </div>
-    </div>
-    <div class="card-body">
-      <div class="flex gap-6">
-        <img src="./images/login-img.png" class="w-16 h-16">
-        <div class=" flex flex-col gap-3">
-          <p class="card-text m-0! w-full">
-            Type a username and password and log on to Windows.
-          </p>
-          <div class="flex flex-col gap-2 ">
-            <div class="form-group flex items-center gap-2">
-              <label for="username" class="w-15">Username: </label>
-              <input id="username" type="text" class="bg-white px-1 text-xs font-light"
-                style="font-family: 'VT323', monospace; font-size: 1rem;" />
-            </div>
-            <div class="form-group flex items-center gap-2">
-              <label for="password" class="w-15">Password: </label>
-              <input id="password" type="password" class="bg-white px-1 text-xs font-light"
-                style="font-family: 'VT323', monospace; font-size: 1rem;" />
-            </div>
-          </div>
-        </div>
-        <div class="flex flex-col gap-2">
-          <button class="btn btn-primary btn-sm border-dark login-submit"><span class="btn-text">Ok</span></button>
-          <button class="btn btn-primary btn-sm"><span class="btn-text">Cancel</span></button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="desktop" style="display: none;">
-    <div class="flex justify-between h-screen">
-      <div class="inline-flex p-4 gap-6 flex-col items-center">
-        <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="portfolio">
-          <img src="images/explorer-desktop-icon.png" class="w-10 h-10" />
-          <span class="text-white text-center">Explorer</span>
-        </div>
-        <div class="desktop-icon flex justify-center items-center flex-col">
-          <img src="images/mailbox-desktop-icon.png" class="w-10 h-10" />
-          <span class="text-white text-center">Inbox</span>
-        </div>
-        <div class="desktop-icon flex justify-center items-center flex-col">
-          <img src="images/computer-desktop-icon.png" class="w-10 h-10" />
-          <span class="text-white text-center">My Computer</span>
-        </div>
-        <div class="desktop-icon flex justify-center items-center flex-col">
-          <img src="images/network-desktop-icon.png" class="w-10 h-10" />
-          <span class="text-white text-center">Network</span>
-        </div>
-        <div class="desktop-icon flex justify-center items-center flex-col">
-          <img src="images/recycle-desktop-icon.png" class="w-10 h-10" />
-          <span class="text-white text-center">Recycle Bin</span>
-        </div>
-      </div>
-
-      <div class="inline-flex p-4 gap-6 flex-col items-center">
-        <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="portfolio">
-          <img src="images/portfolio-desktop.png" class="w-10 h-10" />
-          <span class="text-white text-center">Portfolio</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card fixed card-teritiary cursor-default card-tertiary top-40 left-40 custom-window" id="window"
-      data-title="portfolio">
+  <!-- <img class="w-full h-full" src="./images/bezel.png" /> -->
+  <div class="screen-wrapper">
+    <!-- <iframe frameborder="0" src="https://v8.js-dos.com/bundles/digger.jsdos" allowfullscreen /> -->
+    <div class="card fixed card-tertiary top-40 left-40 custom-window login-window none" id="window" data-title="login">
       <div class="card-header flex justify-between">
-        <span>Portfolio</span>
+        <span>Welcome to Windows</span>
         <div class="window-buttons flex items-center justify-center">
           <button class="btn btn-primary p-0! w-4 h-4" id="btn-minimize">
             _
@@ -102,74 +37,302 @@
       </div>
       <div class="card-body">
         <div class="flex gap-6">
-          <img src="images/profile.jpg" class="h-full max-h-40 object-cover" />
-          <div>
-            <p class="card-text font-bold">Hey there 👋</p>
-
-            <p class="card-text">This is my personal portfolio website.</p>
-
-            <p class="card-text">
-              I am <b>Sanjeevi Rajan Ramajayam</b> from Tamil Nadu, India.
+          <img src="./images/login-img.png" class="w-16 h-16">
+          <div class=" flex flex-col gap-3">
+            <p class="card-text m-0! w-full">
+              Type a username and password and log on to Windows.
             </p>
+            <div class="flex flex-col gap-2 ">
+              <div class="form-group flex items-center gap-2">
+                <label for="username" class="w-15">Username: </label>
+                <input id="username" type="text" autocomplete="off" class="bg-white px-1 text-xs font-light"
+                  style="font-family: 'VT323', monospace; font-size: 1rem;" />
+              </div>
+              <div class="form-group flex items-center gap-2">
+                <label for="password" class="w-15">Password: </label>
+                <input id="password" type="password" class="bg-white px-1 text-xs font-light"
+                  style="font-family: 'VT323', monospace; font-size: 1rem;" autocomplete="off" />
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2">
+            <button class="btn btn-primary btn-sm border-dark login-submit"><span class="btn-text">Ok</span></button>
+            <button class="btn btn-primary btn-sm"><span class="btn-text">Cancel</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-            <p class="card-text">
-              I am a passionate developer interested in building scalable web
-              applications and exploring modern web technologies.
-            </p>
-
-            <p class="card-text">
-              My primary focus is on the <b>JavaScript ecosystem</b>,
-              especially:
-            </p>
-
-            <ul class="text-xs list-disc ml-4">
-              <li>React</li>
-              <li>Node.js</li>
-              <li>Full-stack web development</li>
-              <li>Problem solving and algorithms</li>
-            </ul>
-
-            <p class="card-text">
-              I enjoy learning new technologies and building projects that solve
-              real-world problems.
-            </p>
-
-            <p class="card-text">
-              You can find my work and coding profiles here:
-            </p>
-            <div>
-              <a class="text-xs" target="_blank" href="https://github.com/sanjeevirajanramajayam  ">Github</a>
-              <a class="text-xs" target="_blank"
-                href="https://www.linkedin.com/in/sanjeevi-rajan-77588231a/">LinkedIn</a>
-              <a class="text-xs" target="_blank" href="https://leetcode.com/u/sanjeevi_rajan/">Leetcode</a>
-              <a class="text-xs" target="_blank" href="https://codolio.com/profile/sanjeevi_rajan">Codolio</a>
+    <div class="card fixed card-tertiary top-1/3 -z-50 custom-window" style="display: none;" id="window"
+      data-title="error">
+      <div class="card-header flex justify-between">
+        <span>Windows Networking</span>
+        <div class="window-buttons flex items-center justify-center">
+          <button class="btn btn-primary p-0! w-4 h-4" id="btn-minimize">
+            _
+          </button>
+          <button class="btn btn-primary p-0! w-4 h-4" id="btn-maximize">
+            □
+          </button>
+          <button class="btn btn-primary p-0! w-4 h-4" id="btn-close">✕</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="flex gap-4 items-center justify-center ">
+          <img src="./images/error-dialog-box.png" class="w-8 h-8">
+          <div class="flex flex-col ">
+            <p class="card-text">The Windows password you typed is incorrect.</p>
+            <div class="flex justify-center">
+              <button
+                class="btn btn-primary btn-sm border-dark login-submit flex-end max-w-1/4 mt-2 error-ok"><span>Ok</span></button>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-
-    <div class="taskbar w-full fixed bottom-0 p-1 bg-primary">
-      <div class="flex justify-between items-center">
-        <button class="btn text-lg! items-center! px-1! inline-flex!" type="button">
-          <img src="images/start-icon.png" class="h-4 w-4 m-1" />
-          <span class="btn-text">Start</span>
-        </button>
-        <div class="divider m-1!"></div>
-        <div data-window="portfolio">
-          <button class="btn btn-primary text-lg! text-center! flex! items-center!" data-window="portfolio">
-            <img src="./images/explorer-desktop-icon.png" class="h-4 w-4 m-1" />
-            <span class="btn-text">Portfolio</span>
+    <div class="card fixed card-tertiary top-1/3 -z-50 custom-window" style="display: none;" id="window"
+      data-title="error">
+      <div class="card-header flex justify-between">
+        <span>Windows Networking</span>
+        <div class="window-buttons flex items-center justify-center">
+          <button class="btn btn-primary p-0! w-4 h-4" id="btn-minimize">
+            _
           </button>
+          <button class="btn btn-primary p-0! w-4 h-4" id="btn-maximize">
+            □
+          </button>
+          <button class="btn btn-primary p-0! w-4 h-4" id="btn-close">✕</button>
         </div>
-        <div class="flex-1"></div>
-        <div class="divider m-1!"></div>
+      </div>
+      <div class="card-body">
 
-        <div class="tray flex items-center">
-          <span class="flex gap-2 time items-center"><img src="images/taskbar-sound-icon.png" class="h-4 w-4" /><span
-              id="datetime"></span>
-          </span>
+      </div>
+    </div>
+
+
+    <div class="desktop">
+      <div class="flex justify-between h-screen">
+        <div class="inline-flex p-4 gap-6 flex-col items-center">
+          <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="portfolio">
+            <img src="images/explorer-desktop-icon.png" class="w-10 h-10" />
+            <span class="text-white text-center">Explorer</span>
+          </div>
+          <div class="desktop-icon flex justify-center items-center flex-col">
+            <img src="images/mailbox-desktop-icon.png" class="w-10 h-10" />
+            <span class="text-white text-center">Inbox</span>
+          </div>
+          <div class="desktop-icon flex justify-center items-center flex-col">
+            <img src="images/computer-desktop-icon.png" class="w-10 h-10" />
+            <span class="text-white text-center">My Computer</span>
+          </div>
+          <div class="desktop-icon flex justify-center items-center flex-col">
+            <img src="images/network-desktop-icon.png" class="w-10 h-10" />
+            <span class="text-white text-center">Network</span>
+          </div>
+          <div class="desktop-icon flex justify-center items-center flex-col">
+            <img src="images/recycle-desktop-icon.png" class="w-10 h-10" />
+            <span class="text-white text-center">Recycle Bin</span>
+          </div>
+        </div>
+        <a href="./images/Sanjeevi Rajan Ramajayam Resume.pdf" download class="download-resume"
+          style="display: none;"></a>
+        <div class="inline-flex p-4 gap-6 flex-col items-center">
+          <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="portfolio">
+            <img src="images/portfolio-desktop.png" class="w-10 h-10" />
+            <span class="text-white text-center">Portfolio</span>
+          </div>
+
+          <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="resume">
+            <img src="images/resume-desktop-icon.png" class="w-10 h-10" />
+            <span class="text-white text-center">Resume</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card fixed card-tertiary top-40 left-40 custom-window login-window none" id="window"
+        data-title="resume" style="display: none;">
+        <div class="card-header flex justify-between">
+          <span>Dowload Resume</span>
+          <div class="window-buttons flex items-center justify-center">
+            <button class="btn btn-primary p-0! w-4 h-4" id="btn-minimize">
+              _
+            </button>
+            <button class="btn btn-primary p-0! w-4 h-4" id="btn-maximize">
+              □
+            </button>
+            <button class="btn btn-primary p-0! w-4 h-4" id="btn-close">✕</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="flex gap-6">
+            <img src="./images/resume-desktop-icon.png" class="p-2 w-16 h-16">
+            <div class=" flex flex-col gap-3">
+              <p class="card-text m-0! w-full download-text">
+                Dowload Resume
+              </p>
+              <progress value="0" class="w-96! h-8! download-progress"></progress>
+              <div class="flex justify-center">
+                <button
+                  class="btn btn-primary btn-sm border-dark login-submit flex-end max-w-1/4 download-btn"><span>Download</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card fixed cursor-default card-tertiary top-40 left-40 custom-window" id="window"
+        data-title="portfolio">
+        <div class="card-header flex justify-between">
+          <span>Portfolio</span>
+          <div class="window-buttons flex items-center justify-center">
+            <button class="btn btn-primary p-0! w-4 h-4" id="btn-minimize">
+              _
+            </button>
+            <button class="btn btn-primary p-0! w-4 h-4" id="btn-maximize">
+              □
+            </button>
+            <button class="btn btn-primary p-0! w-4 h-4" id="btn-close">✕</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="flex gap-6">
+            <img src="images/profile_7_bit.jpg" class="h-full max-h-50 object-cover" />
+            <div>
+              <p class="card-text font-bold">Hey there 👋</p>
+
+              <p class="card-text">This is my personal portfolio website.</p>
+
+              <p class="card-text">
+                I am <b>Sanjeevi Rajan Ramajayam</b> from Tamil Nadu, India.
+              </p>
+
+              <p class="card-text">
+                I am a passionate developer interested in building scalable web
+                applications and exploring modern web technologies.
+              </p>
+
+              <p class="card-text">
+                My primary focus is on the <b>JavaScript ecosystem</b>,
+                especially:
+              </p>
+
+              <ul class="text-xs list-disc ml-4">
+                <li>React</li>
+                <li>Node.js</li>
+                <li>Full-stack web development</li>
+                <li>Problem solving and algorithms</li>
+              </ul>
+
+              <p class="card-text">
+                I enjoy learning new technologies and building projects that solve
+                real-world problems.
+              </p>
+
+              <p class="card-text">
+                You can find my work and coding profiles here:
+              </p>
+              <div>
+                <a class="text-xs" target="_blank" href="https://github.com/sanjeevirajanramajayam  ">Github</a>
+                <a class="text-xs" target="_blank"
+                  href="https://www.linkedin.com/in/sanjeevi-rajan-77588231a/">LinkedIn</a>
+                <a class="text-xs" target="_blank" href="https://leetcode.com/u/sanjeevi_rajan/">Leetcode</a>
+                <a class="text-xs" target="_blank" href="https://codolio.com/profile/sanjeevi_rajan">Codolio</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="taskbar w-full absolute bottom-0 p-1 bg-primary ">
+
+        <div class="flex fixed w-50 bg-primary raised self-stretch h-112 menu-bar hidden z-9999" style="bottom: 48px;">
+          <div class="">
+            <p class="px-2 menu-bar-text rotate-180 raised h-full" style="font-family: Arial, Helvetica, sans-serif;">
+              <span style="font-family: Arial, Helvetica, sans-serif;"
+                class="text-lg font-black text-[#C3C3C3]">Windows</span>
+              <span style="font-family: Arial, Helvetica, sans-serif;"
+                class="text-lg font-thin text-[#DEDEDE]">95</span>
+            </p>
+          </div>
+          <div class="flex flex-col gap-2 w-full ">
+            <div class="flex px-2 gap-2 py-1 mt-2 items-center hover:bg-[#0F0086] hover:text-white">
+              <img src="./images/menu-program-icon.png" class="h-8 w-8" />
+              <span class="font-xs">Programs</span>
+            </div>
+
+            <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white">
+              <img src="./images/menu-favourite-icon.png" class="h-8 w-8" />
+              <span class="font-xs">Favourites</span>
+            </div>
+
+            <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white">
+              <img src="./images/menu-document-icon.png" class="h-8 w-8" />
+              <span class="font-xs">Documents</span>
+            </div>
+
+            <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white">
+              <img src="./images/menu-settings-icon.png" class="h-8 w-8" />
+              <span class="font-xs">Settings</span>
+            </div>
+
+            <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white">
+              <img src="./images/menu-find-icon.png" class="h-8 w-8" />
+              <span class="font-xs">Find</span>
+            </div>
+
+            <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white">
+              <img src="./images/briefcase-desktop-icon.png" class="h-8 w-8" />
+              <span class="font-xs">Run</span>
+            </div>
+
+            <div class="h-divider"></div>
+
+
+            <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white">
+              <img src="./images/menu-logout-icon.png" class="h-8 w-8" />
+              <span class="font-xs">Log Off V86...</span>
+            </div>
+
+            <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white">
+              <img src="./images/menu-sleep-icon.png" class="h-8 w-8" />
+              <span class="font-xs">Suspend</span>
+            </div>
+
+            <div class="flex px-2 gap-2 py-1 mb-2 items-center hover:bg-[#0F0086] hover:text-white">
+              <img src="./images/menu-shutdown-icon.png" class="h-8 w-8" />
+              <span class="font-xs">Shutdown</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="flex justify-between items-center gap-1">
+          <button class="btn text-lg! items-center! px-1! inline-flex! start-btn" type="button">
+            <img src="images/start-icon.png" class="h-4 w-4 m-1" />
+            <span class="btn-text">Start</span>
+          </button>
+          <div class="divider m-1!"></div>
+          <div data-window="portfolio">
+            <button class="btn btn-primary text-lg! text-center! flex! items-center!" data-window="portfolio">
+              <img src="./images/explorer-desktop-icon.png" class="h-4 w-4 m-1" />
+              <span class="btn-text">Portfolio</span>
+            </button>
+          </div>
+          <div data-window="resume" style="display: none;">
+            <button class="btn btn-primary text-lg! text-center! flex! items-center!" data-window="portfolio">
+              <img src="./images/explorer-desktop-icon.png" class="h-4 w-4 m-1" />
+              <span class="btn-text">Resume</span>
+            </button>
+          </div>
+          <div class="flex-1"></div>
+          <div class="divider m-1!"></div>
+
+          <div class="tray flex items-center">
+            <span class="flex gap-2 time items-center"><img src="images/taskbar-sound-icon.png" class="h-4 w-4" /><span
+                id="datetime"></span>
+            </span>
+          </div>
         </div>
       </div>
     </div>
