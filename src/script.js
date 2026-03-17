@@ -116,6 +116,11 @@ document.addEventListener("click", (e) => {
   if (e.target.id == "btn-close") {
     const card = e.target.closest(".card");
     card.style.display = "none";
+
+    const iframe = card.querySelector("iframe");
+    if (iframe) {
+      iframe.src = ""; // stop game
+    }
     const card_title = card.dataset.title;
     const taskElement = document.querySelector(`[data-window="${card_title}"]`);
     taskElement.style.display = "none";
@@ -159,6 +164,15 @@ function makeVisible(window) {
 
 document.addEventListener("dblclick", (e) => {
   const btn = e.target.closest("[data-windowsrc]");
+  const card = document.querySelector(
+    `[data-title="${btn.dataset.windowsrc}"]`,
+  );
+  if (!card) return;
+
+  const iframe = card.querySelector("iframe");
+  if (iframe) {
+    iframe.src = "https://git.nihilogic.dk/wolf3d/";
+  }
   if (btn) {
     makeVisible(btn.dataset.windowsrc);
   }
@@ -256,4 +270,31 @@ document.querySelector(".start-btn").addEventListener("click", (e) => {
   } else {
     document.querySelector(".menu-bar").style.display = "";
   }
+});
+
+document.querySelector(".logout-btn").addEventListener("click", (e) => {
+  document.querySelector(".login-window").style.display = "block";
+  const audio = new Audio("./audio/windows-95-logout-sound-effect.mp3");
+  audio.play();
+  audio.addEventListener("ended", () => {});
+  document.querySelector(".desktop").style.display = "none";
+  document.querySelector(".menu-bar").style.display = "none";
+});
+
+document.querySelector(".sleep-btn").addEventListener("click", (e) => {
+  document.querySelector(".login-window").style.display = "block";
+  const audio = new Audio("./audio/windows-95-logout-sound-effect.mp3");
+  audio.play();
+  audio.addEventListener("ended", () => {});
+  document.querySelector(".desktop").style.display = "none";
+  document.querySelector(".menu-bar").style.display = "none";
+});
+
+document.querySelector(".shutdown-btn").addEventListener("click", (e) => {
+  document.querySelector(".login-window").style.display = "block";
+  const audio = new Audio("./audio/windows-95-logout-sound-effect.mp3");
+  audio.play();
+  audio.addEventListener("ended", () => {});
+  document.querySelector(".desktop").style.display = "none";
+  document.querySelector(".menu-bar").style.display = "none";
 });

@@ -12,6 +12,7 @@
     --color-gray-200: #C3C3C3;
     --color-gray-300: #808080;
     --color-blue: #0F0086;
+    --shadow-fieldset: var(--shadow-inner-2);
     --shadow-inner-1: inset -2px -2px 0 var(--color-white), inset 2px 2px 0 var(--color-gray-300);
 }
 
@@ -389,6 +390,7 @@ progress::-moz-progress-bar {
 }
 
 /* scanlines */
+.menu-bar::before,
 body::before {
     content: "";
     position: fixed;
@@ -407,6 +409,7 @@ body::before {
 }
 
 /* screen flicker */
+.menu-bar::after,
 body::after {
     content: "";
     position: fixed;

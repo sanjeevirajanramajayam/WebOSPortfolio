@@ -9,19 +9,13 @@
   <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
 
-  <!-- js-dos style sheet -->
-  <!-- <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css"> -->
-
-  <!-- js-dos -->
-  <!-- <script src="https://v8.js-dos.com/latest/js-dos.js"></script> -->
-
   <script src="script.js" defer></script>
 </head>
 
 <body style="background-image: url(&quot;./images/background.png&quot;)" class="bg-cover h-screen">
-  <!-- <img class="w-full h-full" src="./images/bezel.png" /> -->
   <div class="screen-wrapper">
-    <!-- <iframe frameborder="0" src="https://v8.js-dos.com/bundles/digger.jsdos" allowfullscreen /> -->
+    <!-- Login Window  -->
+
     <div class="card fixed card-tertiary top-40 left-40 custom-window login-window none" id="window" data-title="login">
       <div class="card-header flex justify-between">
         <span>Welcome to Windows</span>
@@ -62,6 +56,7 @@
         </div>
       </div>
     </div>
+    <!-- Error Window -->
 
     <div class="card fixed card-tertiary top-1/3 -z-50 custom-window" style="display: none;" id="window"
       data-title="error">
@@ -91,27 +86,10 @@
       </div>
     </div>
 
-    <div class="card fixed card-tertiary top-1/3 -z-50 custom-window" style="display: none;" id="window"
-      data-title="error">
-      <div class="card-header flex justify-between">
-        <span>Windows Networking</span>
-        <div class="window-buttons flex items-center justify-center">
-          <button class="btn btn-primary p-0! w-4 h-4" id="btn-minimize">
-            _
-          </button>
-          <button class="btn btn-primary p-0! w-4 h-4" id="btn-maximize">
-            □
-          </button>
-          <button class="btn btn-primary p-0! w-4 h-4" id="btn-close">✕</button>
-        </div>
-      </div>
-      <div class="card-body">
-
-      </div>
-    </div>
 
 
     <div class="desktop">
+      <!-- Desktop Icons -->
       <div class="flex justify-between h-screen">
         <div class="inline-flex p-4 gap-6 flex-col items-center">
           <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="portfolio">
@@ -135,8 +113,10 @@
             <span class="text-white text-center">Recycle Bin</span>
           </div>
         </div>
+
         <a href="./images/Sanjeevi Rajan Ramajayam Resume.pdf" download class="download-resume"
           style="display: none;"></a>
+
         <div class="inline-flex p-4 gap-6 flex-col items-center">
           <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="portfolio">
             <img src="images/portfolio-desktop.png" class="w-10 h-10" />
@@ -147,8 +127,14 @@
             <img src="images/resume-desktop-icon.png" class="w-10 h-10" />
             <span class="text-white text-center">Resume</span>
           </div>
+
+          <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="game">
+            <img src="images/wolf3d-desktop-icon.png" class="w-10 h-10" />
+            <span class="text-white text-center">Wolfenstein 3D</span>
+          </div>
         </div>
       </div>
+      <!-- Resume Window -->
 
       <div class="card fixed card-tertiary top-40 left-40 custom-window login-window none" id="window"
         data-title="resume" style="display: none;">
@@ -180,6 +166,84 @@
           </div>
         </div>
       </div>
+
+      <!-- Settings Window -->
+
+      <!-- <div class="card fixed card-tertiary top-40 left-40 custom-window login-window none" id="window"
+        data-title="settings">
+        <div class="card-header flex justify-between">
+          <span>Settings</span>
+          <div class="window-buttons flex items-center justify-center">
+            <button class="btn btn-primary p-0! w-4 h-4" id="btn-minimize">
+              _
+            </button>
+            <button class="btn btn-primary p-0! w-4 h-4" id="btn-maximize">
+              □
+            </button>
+            <button class="btn btn-primary p-0! w-4 h-4" id="btn-close">✕</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="flex gap-6">
+            <img src="./images/resume-desktop-icon.png" class="p-2 w-16 h-16">
+            <div class=" flex flex-col gap-3">
+              <fieldset>
+                <legend>Settings</legend>
+                asdds
+                adsdasf
+                asdfdsf
+              </fieldset>
+              <p class="card-text m-0! w-full download-text">
+                Dowload Resume
+              </p>
+              <progress value="0" class="w-96! h-8! download-progress"></progress>
+              <div class="flex justify-center">
+                <button
+                  class="btn btn-primary btn-sm border-dark login-submit flex-end max-w-1/4 download-btn"><span>Download</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- Projects Window -->
+<!-- 
+      <div class="card fixed card-tertiary top-40 left-40 custom-window login-window none" id="window"
+        data-title="settings">
+        <div class="card-header flex justify-between">
+          <span>Settings</span>
+          <div class="window-buttons flex items-center justify-center">
+            <button class="btn btn-primary p-0! w-4 h-4" id="btn-minimize">
+              _
+            </button>
+            <button class="btn btn-primary p-0! w-4 h-4" id="btn-maximize">
+              □
+            </button>
+            <button class="btn btn-primary p-0! w-4 h-4" id="btn-close">✕</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="dialog-body">
+            <div class="tabs" role="tablist" style="margin-bottom: 40px;">
+              <button id="tab-1" type="button" class="tab" role="tab" aria-selected="true" aria-controls="tabpanel-1"
+                tabindex="-1">
+                <span>Tab 1</span>
+              </button>
+              <button id="tab-2" type="button" class="tab" role="tab" aria-selected="true" aria-controls="tabpanel-2"
+                tabindex="-1">
+                <span>Tab 1</span>
+              </button>
+              <button id="tab-3" type="button" class="tab" role="tab" aria-selected="true" aria-controls="tabpanel-3"
+                tabindex="-1">
+                <span>Tab 1</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+
+      <!-- Portfolio Window -->
 
       <div class="card fixed cursor-default card-tertiary top-40 left-40 custom-window" id="window"
         data-title="portfolio">
@@ -243,70 +307,69 @@
           </div>
         </div>
       </div>
+      <!-- Startup Menu -->
+
+      <div class="flex fixed w-50 bg-primary raised self-stretch h-112 menu-bar hidden z-9999" style="bottom: 48px;">
+        <div class="">
+          <p class="px-2 menu-bar-text rotate-180 raised h-full" style="font-family: Arial, Helvetica, sans-serif;">
+            <span style="font-family: Arial, Helvetica, sans-serif;"
+              class="text-lg font-black text-[#C3C3C3]">Windows</span>
+            <span style="font-family: Arial, Helvetica, sans-serif;" class="text-lg font-thin text-[#DEDEDE]">95</span>
+          </p>
+        </div>
+        <div class="flex flex-col gap-2 w-full ">
+          <div class="flex px-2 gap-2 py-1 mt-2 items-center hover:bg-[#0F0086] hover:text-white">
+            <img src="./images/menu-program-icon.png" class="h-8 w-8" />
+            <span class="font-xs">Programs</span>
+          </div>
+
+          <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white">
+            <img src="./images/menu-favourite-icon.png" class="h-8 w-8" />
+            <span class="font-xs">Favourites</span>
+          </div>
+
+          <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white">
+            <img src="./images/menu-document-icon.png" class="h-8 w-8" />
+            <span class="font-xs">Documents</span>
+          </div>
+
+          <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white">
+            <img src="./images/menu-settings-icon.png" class="h-8 w-8" />
+            <span class="font-xs">Settings</span>
+          </div>
+
+          <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white">
+            <img src="./images/menu-find-icon.png" class="h-8 w-8" />
+            <span class="font-xs">Find</span>
+          </div>
+
+          <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white">
+            <img src="./images/briefcase-desktop-icon.png" class="h-8 w-8" />
+            <span class="font-xs">Run</span>
+          </div>
+
+          <div class="h-divider"></div>
+
+
+          <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white logout-btn">
+            <img src="./images/menu-logout-icon.png" class="h-8 w-8" />
+            <span class="font-xs">Log Off V86...</span>
+          </div>
+
+          <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white sleep-btn">
+            <img src="./images/menu-sleep-icon.png" class="h-8 w-8" />
+            <span class="font-xs">Suspend</span>
+          </div>
+
+          <div class="flex px-2 gap-2 py-1 mb-2 items-center hover:bg-[#0F0086] hover:text-white shutdown-btn">
+            <img src="./images/menu-shutdown-icon.png" class="h-8 w-8" />
+            <span class="font-xs">Shutdown</span>
+          </div>
+        </div>
+      </div>
+      <!-- Task bar -->
 
       <div class="taskbar w-full absolute bottom-0 p-1 bg-primary ">
-
-        <div class="flex fixed w-50 bg-primary raised self-stretch h-112 menu-bar hidden z-9999" style="bottom: 48px;">
-          <div class="">
-            <p class="px-2 menu-bar-text rotate-180 raised h-full" style="font-family: Arial, Helvetica, sans-serif;">
-              <span style="font-family: Arial, Helvetica, sans-serif;"
-                class="text-lg font-black text-[#C3C3C3]">Windows</span>
-              <span style="font-family: Arial, Helvetica, sans-serif;"
-                class="text-lg font-thin text-[#DEDEDE]">95</span>
-            </p>
-          </div>
-          <div class="flex flex-col gap-2 w-full ">
-            <div class="flex px-2 gap-2 py-1 mt-2 items-center hover:bg-[#0F0086] hover:text-white">
-              <img src="./images/menu-program-icon.png" class="h-8 w-8" />
-              <span class="font-xs">Programs</span>
-            </div>
-
-            <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white">
-              <img src="./images/menu-favourite-icon.png" class="h-8 w-8" />
-              <span class="font-xs">Favourites</span>
-            </div>
-
-            <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white">
-              <img src="./images/menu-document-icon.png" class="h-8 w-8" />
-              <span class="font-xs">Documents</span>
-            </div>
-
-            <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white">
-              <img src="./images/menu-settings-icon.png" class="h-8 w-8" />
-              <span class="font-xs">Settings</span>
-            </div>
-
-            <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white">
-              <img src="./images/menu-find-icon.png" class="h-8 w-8" />
-              <span class="font-xs">Find</span>
-            </div>
-
-            <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white">
-              <img src="./images/briefcase-desktop-icon.png" class="h-8 w-8" />
-              <span class="font-xs">Run</span>
-            </div>
-
-            <div class="h-divider"></div>
-
-
-            <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white">
-              <img src="./images/menu-logout-icon.png" class="h-8 w-8" />
-              <span class="font-xs">Log Off V86...</span>
-            </div>
-
-            <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white">
-              <img src="./images/menu-sleep-icon.png" class="h-8 w-8" />
-              <span class="font-xs">Suspend</span>
-            </div>
-
-            <div class="flex px-2 gap-2 py-1 mb-2 items-center hover:bg-[#0F0086] hover:text-white">
-              <img src="./images/menu-shutdown-icon.png" class="h-8 w-8" />
-              <span class="font-xs">Shutdown</span>
-            </div>
-          </div>
-
-        </div>
-
         <div class="flex justify-between items-center gap-1">
           <button class="btn text-lg! items-center! px-1! inline-flex! start-btn" type="button">
             <img src="images/start-icon.png" class="h-4 w-4 m-1" />
@@ -325,6 +388,12 @@
               <span class="btn-text">Resume</span>
             </button>
           </div>
+          <div data-window="game">
+            <button class="btn btn-primary text-lg! text-center! flex! items-center!" data-window="game">
+              <img src="./images/desktop-wolfenstein-3d.webp" class="h-4 w-4 m-1" />
+              <span class="btn-text">Wolfenstein 3d</span>
+            </button>
+          </div>
           <div class="flex-1"></div>
           <div class="divider m-1!"></div>
 
@@ -334,8 +403,32 @@
             </span>
           </div>
         </div>
+
+        <div class="card fixed card-tertiary top-40 left-40 custom-window login-window none" id="window"
+          data-title="game" style="display: none;">
+          <div class="card-header flex justify-between">
+            <span>Wolfenstein 3D</span>
+            <div class="window-buttons flex items-center justify-center">
+              <button class="btn btn-primary p-0! w-4 h-4" id="btn-minimize">
+                _
+              </button>
+              <button class="btn btn-primary p-0! w-4 h-4" id="btn-maximize">
+                □
+              </button>
+              <button class="btn btn-primary p-0! w-4 h-4" id="btn-close">✕</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="flex gap-6">
+              <iframe src="" width="640" height="480">
+            </div>
+          </div>
+        </div>
+
       </div>
+
     </div>
+  </div>
   </div>
   </div>
 </body>
