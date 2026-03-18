@@ -12,7 +12,7 @@
   <script src="script.js" defer></script>
 </head>
 
-<body style="background-image: url(&quot;./images/background.png&quot;)" class="bg-cover h-screen">
+<body style="background-image: url(&quot;./images/background.png&quot;)" class="bg-cover object-fit h-screen">
   <div class="screen-wrapper">
     <!-- Login Window  -->
 
@@ -169,7 +169,7 @@
 
       <!-- Settings Window -->
 
-      <!-- <div class="card fixed card-tertiary top-40 left-40 custom-window login-window none" id="window"
+      <div class="card fixed card-tertiary top-40 left-40 custom-window login-window none" id="window"
         data-title="settings">
         <div class="card-header flex justify-between">
           <span>Settings</span>
@@ -185,29 +185,48 @@
         </div>
         <div class="card-body">
           <div class="flex gap-6">
-            <img src="./images/resume-desktop-icon.png" class="p-2 w-16 h-16">
-            <div class=" flex flex-col gap-3">
-              <fieldset>
-                <legend>Settings</legend>
-                asdds
-                adsdasf
-                asdfdsf
-              </fieldset>
-              <p class="card-text m-0! w-full download-text">
-                Dowload Resume
-              </p>
-              <progress value="0" class="w-96! h-8! download-progress"></progress>
+            <div class=" flex flex-col gap-2">
               <div class="flex justify-center">
-                <button
-                  class="btn btn-primary btn-sm border-dark login-submit flex-end max-w-1/4 download-btn"><span>Download</span></button>
+                <div class="relative">
+                  <img src="./images/background-setup.webp" class="w-full absolute z-0 top-6 monitor-display" />
+                  <img src="./images/background-monitor.png" class="w-56 relative z-100" />
+                </div>
               </div>
+              <fieldset>
+                <legend><span>Wallpaper</span></legend>
+                <div class="flex justify-between gap-4">
+                  <div class="flex flex-col gap-2">
+                    <span>Select an HTML Document or a picture:</span>
+                    <select id="bg-select" name="select" multiple size="5">
+                      <option class="bg-option" value="background.png">Default</option>
+                      <option class="bg-option" value="background-clouds.webp">Clouds</option>
+                      <option class="bg-option" value="background-setup.jpg">Setup Screen</option>
+                      <option class="bg-option" value="background-hill-wallpaper.png">Hill</option>
+                      <option value="">Empty</option>
+                      <option value="">Empty</option>
+                    </select>
+                  </div>
+                  <div class="flex flex-col gap-2">
+                    <button class="btn btn-sm border-dark"><span class="btn-text">Browse</span></button>
+                    <button class="btn btn-sm" disabled><span class="btn-text">Pattern</span></button>
+                  </div>
+
+                </div>
+              </fieldset>
             </div>
+
+          </div>
+          <div class="flex gap-2">
+            <div class="flex flex-1 "></div>
+            <button class="btn btn-sm btn-close" id="btn-close"><span class="btn-text">Ok</span></button>
+            <button class="btn btn-sm btn-close" id="btn-close"><span class="btn-text">Cancel</span></button>
+            <button class="btn btn-sm border-dark bg-apply"><span class="btn-text">Apply</span></button>
           </div>
         </div>
-      </div> -->
+      </div>
 
       <!-- Projects Window -->
-<!-- 
+      <!-- 
       <div class="card fixed card-tertiary top-40 left-40 custom-window login-window none" id="window"
         data-title="settings">
         <div class="card-header flex justify-between">
@@ -388,10 +407,10 @@
               <span class="btn-text">Resume</span>
             </button>
           </div>
-          <div data-window="game">
+          <div data-window="game" style="display: none;">
             <button class="btn btn-primary text-lg! text-center! flex! items-center!" data-window="game">
               <img src="./images/desktop-wolfenstein-3d.webp" class="h-4 w-4 m-1" />
-              <span class="btn-text">Wolfenstein 3d</span>
+              <span class="btn-text">Wolfenstein 3D</span>
             </button>
           </div>
           <div class="flex-1"></div>

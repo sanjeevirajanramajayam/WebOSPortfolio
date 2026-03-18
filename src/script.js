@@ -22,7 +22,9 @@ function dragElement(elmnt) {
       e.target.tagName === "INPUT" ||
       e.target.tagName === "BUTTON" ||
       e.target.tagName === "LABEL" ||
-      e.target.tagName === "A"
+      e.target.tagName === "A" ||
+      e.target.tagName === "SELECT" ||
+      e.target.tagName === "OPTION"
     ) {
       return;
     }
@@ -297,4 +299,15 @@ document.querySelector(".shutdown-btn").addEventListener("click", (e) => {
   audio.addEventListener("ended", () => {});
   document.querySelector(".desktop").style.display = "none";
   document.querySelector(".menu-bar").style.display = "none";
+});
+
+document.querySelector(".bg-apply").addEventListener("click", (e) => {
+  document.body.style.backgroundImage = `url(${"./images/" + document.querySelector("#bg-select").value})`;
+});
+
+document.querySelectorAll(".bg-option").forEach((e) => {
+  e.addEventListener("click", (eve) => {
+    document.querySelector(".monitor-display").src =
+      "./images/" + document.querySelector("#bg-select").value;
+  });
 });
