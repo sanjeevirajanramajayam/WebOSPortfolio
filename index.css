@@ -115,29 +115,8 @@ body,
 option,
 span {
     font-family: VT323, monospace;
-    /* animation: textflicker 0.3s infinite alternate; */
-
-
 }
 
-
-
-/* body.wait {
-    cursor: url('./cursor/Cursor_3.cur'), wait;
-}
-
-body.pointer {
-    cursor: url('./cursor/Cursor_15.cur'), pointer;
-} */
-
-/* a,
-button,
-[data-windowsrc],
-.window,
-.desktop-icon,
-.clickable {
-    cursor: url('./cursor/Cursor_17.cur'), pointer;
-} */
 
 .bg-primary {
     background-color: silver !important
@@ -489,7 +468,6 @@ progress::-moz-progress-bar {
     background-size: 20px 32px;
 }
 
-/* #dos, #dos * { all: revert; font-family: monospace !important; } */
 @keyframes textflicker {
     from {
         text-shadow: 1px 0 0 #ea36af, -2px 0 0 #75fa69;
@@ -644,11 +622,12 @@ body {
     font-family: 'VT323', monospace;
     font-size: 1rem;
     display: flex;
+    font-weight: lighter;
 }
 
 .tab.is-active {
-    height: 32px;
-    margin-bottom: -2px;
+    height: 36px;
+    margin-bottom: -4px;
     z-index: 1;
     position: relative;
 }
@@ -657,6 +636,7 @@ body {
     display: flex;
     align-items: flex-end;
     border-bottom: 2px solid #fff;
+
 }
 
 .tab-content {

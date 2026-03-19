@@ -263,17 +263,132 @@
         <div class="card-body">
           <div class="tabs" role="tablist">
             <button class="tab is-active rounded-tl-sm rounded-tr-sm" data-set="tab-1">My Journey</button>
+            <button class="tab rounded-tl-sm rounded-tr-sm" data-set="tab-4">My Journey contd...</button>
             <button class="tab rounded-tl-sm rounded-tr-sm" data-set="tab-2">Image Processing API</button>
             <button class="tab rounded-tl-sm rounded-tr-sm" data-set="tab-3">Windows 95 Porfolio</button>
           </div>
           <div id="tab-1" class="tab-content is-active">
-            <p class="card-text">Card Content 1</p>
+            <div class="flex gap-6 items-center m-2 justify-between">
+              <p class="card-text">When I was kid, I always really liked computers.<br /> My parents invested early in
+                computers
+                and I have been using them since I was five. </p>
+              <figure>
+                <img src="./images/thinkcentre.jpg" class="w-24" />
+                <figcaption style="font-family: VT323, monospace;" class="text-center">Actual PC I had.</figcaption>
+              </figure>
+
+            </div>
+            <hr />
+
+            <div class="flex gap-6 items-center m-2 ">
+              <figure>
+                <img src="./images/RPI3B.webp" class="w-36" />
+                <figcaption style="font-family: VT323, monospace;" class="text-center">Raspberry Pi 3B</figcaption>
+              </figure>
+              <p class="card-text">When I was in the sixth grade, I got really into retro gaming. In particular,
+                emulating retro games.<br />
+                Through this I was introuduced to the Raspberry Pi 3B.<br />
+                I asked my uncle to get me one and was introuduced to Linux.</p>
+            </div>
+            <hr />
+            <div class="flex gap-6 items-center m-2 justify-between">
+              <p>Then during lockdown, I was stuck at home.<br /> I learnt Python
+                through freeCodeCamp videos.<br /> I distinctly remember writing my first print and if statement and
+                showing my
+                parents.</p>
+              <figure>
+                <img src="./images/freecodecamp.png" class="w-36" />
+                <figcaption style="font-family: VT323, monospace;" class="text-center">freeCodeCamp</figcaption>
+              </figure>
+
+            </div>
+
+            <hr />
+
           </div>
-          <div id="tab-2" class="tab-content">
-            <p class="card-text">Card Content 2</p>
+          <div id="tab-4" class="tab-content">
+            <div class="flex gap-6 items-center m-2 justify-between">
+              <figure class="flex flex-col items-center justify-center">
+                <img src="./images/Dell PC.webp" class="w-24" />
+                <figcaption style="font-family: VT323, monospace;" class="text-center">The original PC I got.
+                </figcaption>
+              </figure>
+              <p>
+                When I was in the tenth grade, I bugged my parents to get me an old Dell PC so that I could install
+                linux on it safely.<br /> It soon became my daily driver running void linux.
+              </p>
+            </div>
+            <hr />
+
+            <div class="flex gap-6 items-center m-2 justify-between">
+              <p>
+                Then after my 12th
+                board exams, I
+                created a full stack project with django and a locally hosted online pong game using pygame.<br />
+              </p>
+              <figure class="flex flex-col items-center justify-center">
+                <img src="./images/django.png" class="w-24" />
+                <figcaption style="font-family: VT323, monospace;" class="text-center">Django
+                </figcaption>
+              </figure>
+            </div>
+            <hr />
+            <div class="flex gap-6 items-center m-2 ">
+              <figure class="flex flex-col items-center justify-center">
+                <img src="./images/leetcode.png" class="w-24" />
+                <figcaption style="font-family: VT323, monospace;" class="text-center">Leetcode
+                </figcaption>
+              </figure>
+              <p>
+                Then at
+                college, I was introuduced to full-stack development and leetcode.<br /> My foucs shifted to placements which is
+                where
+                it
+                stands now.
+              </p>
+            </div>
+          </div>
+          <div id="tab-2" class="tab-content p-2">
+            <div class="flex justify-between gap-4 items-center">
+              <figure class="flex flex-col items-center justify-center">
+                <img src="./images/urlvidbg (1).gif" class="w-88" />
+                <figcaption style="font-family: VT323, monospace;" class="text-center">URL based Image Transformation Example
+              </figure>
+              <figure class="flex flex-col items-center justify-center">
+                <img src="./images/img-processing-demo.png" class="w-112 h-full" />
+                <figcaption style="font-family: VT323, monospace;" class="text-center">ImgTransformer.
+              </figure>
+
+            </div>
+            <div>
+              <p class="text-center" style="font-family: 'VT323'; font-size: 1rem;">Image Processing API</p>
+              <p class="text-center">
+                This is a Image Processing API that I made with Node.js, Prisma, PostgresSQL, AWS S3 Buckets and
+                React.<br />
+                The goal of this project is for developer to easily transform their uploaded images to the required
+                formats and store their images easily.
+              </p>
+            </div>
           </div>
           <div id="tab-3" class="tab-content">
-            <p class="card-text">Card Content 3</p>
+            <div class="flex justify-between gap-4 items-center">
+              <figure class="flex flex-col items-center justify-center">
+                <img src="./images/WINDOWS-95-SCREENSHOT-1.png" class="w-112" />
+                <figcaption style="font-family: VT323, monospace;" class="text-center">Screenshot 1
+              </figure>
+              <figure class="flex flex-col items-center justify-center">
+                <img src="./images/WINDOWS-95-SCREENSHOT-2.png" class="w-112 h-full" />
+                <figcaption style="font-family: VT323, monospace;" class="text-center">Screenshot 2
+              </figure>
+
+            </div>
+            <div>
+              <p class="text-center" style="font-family: 'VT323'; font-size: 1rem;">Windows 95 Portfolio</p>
+              <p class="text-center">
+                This is a Portfolio that I made with HTML, CSS and JavaScript.<br />
+                The goal of this project is for me to showcase my projects, resume, portfolio and also to have anyone read my journey into coding.
+              </p>
+            </div>
           </div>
 
         </div>
@@ -282,8 +397,7 @@
 
       <!-- Portfolio Window -->
 
-      <div class="card fixed card-tertiary top-40 left-40 custom-window" id="window"
-        data-title="portfolio">
+      <div class="card fixed card-tertiary top-40 left-40 custom-window" id="window" data-title="portfolio">
         <div class="card-header flex justify-between">
           <span>Portfolio</span>
           <div class="window-buttons flex items-center justify-center">
@@ -365,7 +479,8 @@
           <div class="flex gap-4 items-center justify-center ">
             <img src="./images/error-dialog-box.png" class="w-8 h-8">
             <div class="flex flex-col ">
-              <p class="card-text">This feature is not implemented. Please try the left hand side icons or settings.</p>
+              <p class="card-text">This feature is not implemented. Please try the left hand side icons or settings.
+              </p>
               <div class="flex justify-center">
                 <button
                   class="btn btn-primary btn-sm border-dark login-submit flex-end max-w-1/4 mt-2 dummy-ok"><span>Ok</span></button>
@@ -380,7 +495,7 @@
       <div class="flex fixed w-50 bg-primary raised self-stretch h-112 menu-bar hidden z-9999" style="bottom: 48px;">
         <div class="">
           <p class="px-2 menu-bar-text rotate-180 raised h-full" style="font-family: Arial, Helvetica, sans-serif;">
-            <span style="font-family: Arial, Helvetica, sans-serif;"
+            <span style="font-family: Arial, Helvetica, safns-serif;"
               class="text-lg font-black text-[#C3C3C3]">Windows</span>
             <span style="font-family: Arial, Helvetica, sans-serif;" class="text-lg font-thin text-[#DEDEDE]">95</span>
           </p>
@@ -402,7 +517,7 @@
           </div>
 
           <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white settings-btn">
-            <img src="./images/menu-settings-icon.png" class="h-8 w-8" />
+            <img src="./images/menu-settings-2-icon.png" class="h-8 w-8" />
             <span class="font-xs">Settings</span>
           </div>
 
@@ -420,17 +535,17 @@
 
 
           <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white logout-btn">
-            <img src="./images/menu-logout-icon.png" class="h-8 w-8" />
+            <img src="./images/menu-logout-2-icon.png" class="h-8 w-8" />
             <span class="font-xs">Log Off V86...</span>
           </div>
 
           <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white sleep-btn">
-            <img src="./images/menu-sleep-icon.png" class="h-8 w-8" />
+            <img src="./images/menu-sleep-2-icon.png" class="h-8 w-8" />
             <span class="font-xs">Suspend</span>
           </div>
 
           <div class="flex px-2 gap-2 py-1 mb-2 items-center hover:bg-[#0F0086] hover:text-white shutdown-btn">
-            <img src="./images/menu-shutdown-icon.png" class="h-8 w-8" />
+            <img src="./images/menu-shutdown-2-icon.png" class="h-8 w-8" />
             <span class="font-xs">Shutdown</span>
           </div>
         </div>
