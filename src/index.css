@@ -26,10 +26,21 @@
         inset 2px 2px 0 var(--color-gray-300),
         inset -4px -4px 0 var(--color-gray-200);
     --shadow-input: var(--shadow-inner-4);
+}
+
+body {
     cursor: url('./cursor/arrow.cur'), auto;
 }
 
-
+a,
+button,
+[data-windowsrc],
+.desktop-icon,
+[data-window],
+.clickable,
+.tab {
+    cursor: url('./cursor/Cursor_15.cur'), pointer !important;
+}
 
 fieldset {
     border: none;
@@ -105,7 +116,28 @@ option,
 span {
     font-family: VT323, monospace;
     /* animation: textflicker 0.3s infinite alternate; */
+
+
 }
+
+
+
+/* body.wait {
+    cursor: url('./cursor/Cursor_3.cur'), wait;
+}
+
+body.pointer {
+    cursor: url('./cursor/Cursor_15.cur'), pointer;
+} */
+
+/* a,
+button,
+[data-windowsrc],
+.window,
+.desktop-icon,
+.clickable {
+    cursor: url('./cursor/Cursor_17.cur'), pointer;
+} */
 
 .bg-primary {
     background-color: silver !important
@@ -597,4 +629,46 @@ body {
 ::-webkit-scrollbar-corner {
     background-color: var(--color-gray-200);
     box-shadow: var(--shadow-outer-3);
+}
+
+.tab {
+    background-color: #c0c0c0;
+    position: relative;
+    padding: 2px 10px;
+    height: 28px;
+    cursor: pointer;
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+    border-right: 2px solid #393939;
+    border-bottom: none;
+    font-family: 'VT323', monospace;
+    font-size: 1rem;
+    display: flex;
+}
+
+.tab.is-active {
+    height: 32px;
+    margin-bottom: -2px;
+    z-index: 1;
+    position: relative;
+}
+
+.tabs {
+    display: flex;
+    align-items: flex-end;
+    border-bottom: 2px solid #fff;
+}
+
+.tab-content {
+    display: none;
+    border-top: none;
+    border-left: 2px solid #fff;
+    border-right: 2px solid #393939;
+    border-bottom: 2px solid #393939;
+    padding: 8px;
+    background: #c0c0c0;
+}
+
+.tab-content.is-active {
+    display: block;
 }

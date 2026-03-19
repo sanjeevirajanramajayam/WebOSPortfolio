@@ -14,6 +14,7 @@
 
 <body style="background-image: url(&quot;./images/background.png&quot;)" class="bg-cover object-fit h-screen">
   <div class="screen-wrapper">
+
     <!-- Login Window  -->
 
     <div class="card fixed card-tertiary top-40 left-40 custom-window login-window none" id="window" data-title="login">
@@ -56,6 +57,7 @@
         </div>
       </div>
     </div>
+
     <!-- Error Window -->
 
     <div class="card fixed card-tertiary top-1/3 -z-50 custom-window" style="display: none;" id="window"
@@ -86,10 +88,9 @@
       </div>
     </div>
 
-
-
     <div class="desktop">
       <!-- Desktop Icons -->
+
       <div class="flex justify-between h-screen">
         <div class="inline-flex p-4 gap-6 flex-col items-center">
           <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="portfolio">
@@ -132,12 +133,18 @@
             <img src="images/wolf3d-desktop-icon.png" class="w-10 h-10" />
             <span class="text-white text-center">Wolfenstein 3D</span>
           </div>
+
+          <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="projects">
+            <img src="images/desktop-projects-icon.png" class="w-10 h-10" />
+            <span class="text-white text-center">My Projects</span>
+          </div>
         </div>
       </div>
+
       <!-- Resume Window -->
 
-      <div class="card fixed card-tertiary top-40 left-40 custom-window login-window none" id="window"
-        data-title="resume" style="display: none;">
+      <div class="card fixed card-tertiary top-40 left-40 custom-window none" id="window" data-title="resume"
+        style="display: none;">
         <div class="card-header flex justify-between">
           <span>Dowload Resume</span>
           <div class="window-buttons flex items-center justify-center">
@@ -169,8 +176,8 @@
 
       <!-- Settings Window -->
 
-      <div class="card fixed card-tertiary top-40 left-40 custom-window login-window none" id="window"
-        data-title="settings">
+      <div class="card fixed card-tertiary top-40 left-40 custom-window settings-window" id="window"
+        data-title="settings" style="display: none;">
         <div class="card-header flex justify-between">
           <span>Settings</span>
           <div class="window-buttons flex items-center justify-center">
@@ -184,6 +191,17 @@
           </div>
         </div>
         <div class="card-body">
+
+          <div class="tabs mb-4" role="tablist">
+            <button class="tab is-active rounded-tl-sm rounded-tr-sm" data-set="tab-1">
+              Background
+            </button>
+            <button class="tab rounded-tl-sm rounded-tr-sm" data-set="tab-2">Apperance</button>
+            <button class="tab rounded-tl-sm rounded-tr-sm" data-set="tab-3">Web</button>
+            <button class="tab rounded-tl-sm rounded-tr-sm" data-set="tab-3">Plus!</button>
+            <button class="tab rounded-tl-sm rounded-tr-sm" data-set="tab-3">Settings</button>
+          </div>
+
           <div class="flex gap-6">
             <div class=" flex flex-col gap-2">
               <div class="flex justify-center">
@@ -202,13 +220,14 @@
                       <option class="bg-option" value="background-clouds.webp">Clouds</option>
                       <option class="bg-option" value="background-setup.jpg">Setup Screen</option>
                       <option class="bg-option" value="background-hill-wallpaper.png">Hill</option>
-                      <option value="">Empty</option>
-                      <option value="">Empty</option>
+                      <option class="bg-option" value="">Empty</option>
+                      <option class="bg-option" value="">Empty</option>
                     </select>
                   </div>
                   <div class="flex flex-col gap-2">
-                    <button class="btn btn-sm border-dark"><span class="btn-text">Browse</span></button>
-                    <button class="btn btn-sm" disabled><span class="btn-text">Pattern</span></button>
+                    <button class="btn btn-sm border-dark disabled" disabled><span
+                        class="btn-text">Browse</span></button>
+                    <button class="btn btn-sm disabled" disabled><span class="btn-text">Pattern</span></button>
                   </div>
 
                 </div>
@@ -226,11 +245,11 @@
       </div>
 
       <!-- Projects Window -->
-      <!-- 
-      <div class="card fixed card-tertiary top-40 left-40 custom-window login-window none" id="window"
-        data-title="settings">
+
+      <div class="card fixed card-tertiary top-40 left-40 custom-window none" id="window" data-title="projects"
+        style="display: none;">
         <div class="card-header flex justify-between">
-          <span>Settings</span>
+          <span>My Projects</span>
           <div class="window-buttons flex items-center justify-center">
             <button class="btn btn-primary p-0! w-4 h-4" id="btn-minimize">
               _
@@ -242,29 +261,28 @@
           </div>
         </div>
         <div class="card-body">
-          <div class="dialog-body">
-            <div class="tabs" role="tablist" style="margin-bottom: 40px;">
-              <button id="tab-1" type="button" class="tab" role="tab" aria-selected="true" aria-controls="tabpanel-1"
-                tabindex="-1">
-                <span>Tab 1</span>
-              </button>
-              <button id="tab-2" type="button" class="tab" role="tab" aria-selected="true" aria-controls="tabpanel-2"
-                tabindex="-1">
-                <span>Tab 1</span>
-              </button>
-              <button id="tab-3" type="button" class="tab" role="tab" aria-selected="true" aria-controls="tabpanel-3"
-                tabindex="-1">
-                <span>Tab 1</span>
-              </button>
-            </div>
+          <div class="tabs" role="tablist">
+            <button class="tab is-active rounded-tl-sm rounded-tr-sm" data-set="tab-1">My Journey</button>
+            <button class="tab rounded-tl-sm rounded-tr-sm" data-set="tab-2">Image Processing API</button>
+            <button class="tab rounded-tl-sm rounded-tr-sm" data-set="tab-3">Windows 95 Porfolio</button>
           </div>
+          <div id="tab-1" class="tab-content is-active">
+            <p class="card-text">Card Content 1</p>
+          </div>
+          <div id="tab-2" class="tab-content">
+            <p class="card-text">Card Content 2</p>
+          </div>
+          <div id="tab-3" class="tab-content">
+            <p class="card-text">Card Content 3</p>
+          </div>
+
         </div>
-      </div> -->
+      </div>
 
 
       <!-- Portfolio Window -->
 
-      <div class="card fixed cursor-default card-tertiary top-40 left-40 custom-window" id="window"
+      <div class="card fixed card-tertiary top-40 left-40 custom-window" id="window"
         data-title="portfolio">
         <div class="card-header flex justify-between">
           <span>Portfolio</span>
@@ -326,6 +344,37 @@
           </div>
         </div>
       </div>
+
+      <!-- Not Implemented Window -->
+
+      <div class="card fixed card-tertiary top-1/3 -z-50 custom-window dummy-window" style="display: none;" id="window"
+        data-title="dummy">
+        <div class="card-header flex justify-between">
+          <span>Windows Networking</span>
+          <div class="window-buttons flex items-center justify-center">
+            <button class="btn btn-primary p-0! w-4 h-4" id="btn-minimize">
+              _
+            </button>
+            <button class="btn btn-primary p-0! w-4 h-4" id="btn-maximize">
+              □
+            </button>
+            <button class="btn btn-primary p-0! w-4 h-4" id="btn-close">✕</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="flex gap-4 items-center justify-center ">
+            <img src="./images/error-dialog-box.png" class="w-8 h-8">
+            <div class="flex flex-col ">
+              <p class="card-text">This feature is not implemented. Please try the left hand side icons or settings.</p>
+              <div class="flex justify-center">
+                <button
+                  class="btn btn-primary btn-sm border-dark login-submit flex-end max-w-1/4 mt-2 dummy-ok"><span>Ok</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Startup Menu -->
 
       <div class="flex fixed w-50 bg-primary raised self-stretch h-112 menu-bar hidden z-9999" style="bottom: 48px;">
@@ -337,27 +386,27 @@
           </p>
         </div>
         <div class="flex flex-col gap-2 w-full ">
-          <div class="flex px-2 gap-2 py-1 mt-2 items-center hover:bg-[#0F0086] hover:text-white">
+          <div class="flex px-2 gap-2 py-1 mt-2 items-center hover:bg-[#0F0086] hover:text-white dummy-btn">
             <img src="./images/menu-program-icon.png" class="h-8 w-8" />
             <span class="font-xs">Programs</span>
           </div>
 
-          <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white">
+          <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white dummy-btn">
             <img src="./images/menu-favourite-icon.png" class="h-8 w-8" />
             <span class="font-xs">Favourites</span>
           </div>
 
-          <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white">
+          <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white dummy-btn">
             <img src="./images/menu-document-icon.png" class="h-8 w-8" />
             <span class="font-xs">Documents</span>
           </div>
 
-          <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white">
+          <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white settings-btn">
             <img src="./images/menu-settings-icon.png" class="h-8 w-8" />
             <span class="font-xs">Settings</span>
           </div>
 
-          <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white">
+          <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white dummy-btn">
             <img src="./images/menu-find-icon.png" class="h-8 w-8" />
             <span class="font-xs">Find</span>
           </div>
@@ -386,6 +435,7 @@
           </div>
         </div>
       </div>
+
       <!-- Task bar -->
 
       <div class="taskbar w-full absolute bottom-0 p-1 bg-primary ">
@@ -411,6 +461,18 @@
             <button class="btn btn-primary text-lg! text-center! flex! items-center!" data-window="game">
               <img src="./images/desktop-wolfenstein-3d.webp" class="h-4 w-4 m-1" />
               <span class="btn-text">Wolfenstein 3D</span>
+            </button>
+          </div>
+          <div data-window="projects" style="display: none;">
+            <button class="btn btn-primary text-lg! text-center! flex! items-center!" data-window="projects">
+              <img src="./images/desktop-projects-icon.png" class="h-4 w-4 m-1" />
+              <span class="btn-text">My Projects</span>
+            </button>
+          </div>
+          <div data-window="settings" style="display: none;">
+            <button class="btn btn-primary text-lg! text-center! flex! items-center!" data-window="projects">
+              <img src="./images/menu-settings-icon.png" class="h-4 w-4 m-1" />
+              <span class="btn-text">Settings</span>
             </button>
           </div>
           <div class="flex-1"></div>

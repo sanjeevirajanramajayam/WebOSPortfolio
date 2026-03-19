@@ -1,3 +1,7 @@
+if (localStorage.getItem("bg")) {
+  document.body.style.backgroundImage = localStorage.getItem("bg");
+}
+
 function updateTime() {
   var currentTime = dayjs().format("YYYY-MM-DD HH:mm A");
   var timeElement = document.getElementById("datetime");
@@ -164,7 +168,18 @@ function makeVisible(window) {
   }
 }
 
-document.addEventListener("dblclick", (e) => {
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function cursor_wait() {
+  document.body.style.cursor = `url('./cursor/Cursor_3.cur'), auto`;
+  await delay(1000);
+  document.body.style.cursor = `url('./cursor/arrow.cur'), auto`;
+}
+
+document.addEventListener("dblclick", async (e) => {
+  await cursor_wait();
   const btn = e.target.closest("[data-windowsrc]");
   const card = document.querySelector(
     `[data-title="${btn.dataset.windowsrc}"]`,
@@ -207,7 +222,7 @@ document.querySelector(".login-submit").addEventListener("click", (e) => {
     const audio = new Audio("./audio/windows-95-error-sound-effect.mp3");
     audio.play();
     document.querySelector(".error-ok").addEventListener("click", (e) => {
-      error_card.style.display = "none";
+      e.target.closest(".card").style.display = "none";
     });
     error_card.style.display = "block";
     document.querySelector(".login-window").style.zIndex = "10";
@@ -218,6 +233,11 @@ document.querySelector(".login-submit").addEventListener("click", (e) => {
   // audio.play();
   // document.querySelector(".desktop").style.display = "block";
 });
+
+document.querySelector(".dummy-ok").addEventListener("click", (e) => {
+  e.target.closest(".card").style.display = "none";
+});
+
 let width = 0;
 
 if (document.querySelector(".download-btn")) {
@@ -283,6 +303,29 @@ document.querySelector(".logout-btn").addEventListener("click", (e) => {
   document.querySelector(".menu-bar").style.display = "none";
 });
 
+document.querySelector(".settings-btn").addEventListener("click", (e) => {
+  // document.querySelector(".login-window").style.display = "block";
+  // const audio = new Audio("./audio/windows-95-logout-sound-effect.mp3");
+  // audio.play();
+  makeVisible("settings");
+  // document.querySelector(".settings-window").style.display = "block";
+  // audio.addEventListener("ended", () => {});
+  // document.querySelector(".desktop").style.display = "none";
+  document.querySelector(".menu-bar").style.display = "none";
+});
+
+document.querySelectorAll(".dummy-btn").forEach((element) => {
+  element.addEventListener("click", (e) => {
+    // document.querySelector(".login-window").style.display = "block";
+    // const audio = new Audio("./audio/windows-95-logout-sound-effect.mp3");
+    // audio.play();
+    document.querySelector(".dummy-window").style.display = "block";
+    // audio.addEventListener("ended", () => {});
+    // document.querySelector(".desktop").style.display = "none";
+    document.querySelector(".menu-bar").style.display = "none";
+  });
+});
+
 document.querySelector(".sleep-btn").addEventListener("click", (e) => {
   document.querySelector(".login-window").style.display = "block";
   const audio = new Audio("./audio/windows-95-logout-sound-effect.mp3");
@@ -303,11 +346,29 @@ document.querySelector(".shutdown-btn").addEventListener("click", (e) => {
 
 document.querySelector(".bg-apply").addEventListener("click", (e) => {
   document.body.style.backgroundImage = `url(${"./images/" + document.querySelector("#bg-select").value})`;
+  localStorage.setItem("bg", document.body.style.backgroundImage);
 });
 
 document.querySelectorAll(".bg-option").forEach((e) => {
   e.addEventListener("click", (eve) => {
     document.querySelector(".monitor-display").src =
       "./images/" + document.querySelector("#bg-select").value;
+  });
+});
+
+document.querySelectorAll(".tab").forEach((element) => {
+  element.addEventListener("click", (e) => {
+    console.log(element.dataset.set);
+    document.querySelectorAll(".tab").forEach((e) => {
+      e.classList.remove("is-active");
+    });
+    document.querySelectorAll(".tab-content").forEach((e) => {
+      e.classList.remove("is-active");
+    });
+    element.classList.add("is-active");
+    document
+      .getElementById(`${element.dataset.set}`)
+      .classList.add("is-active");
+    // document.target.element.id;
   });
 });
