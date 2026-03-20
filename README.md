@@ -23,9 +23,11 @@ Try out the demo here
 - **Portfolio** - View my Portfolio through the desktop icon.
 - **Resume** - Download my resume.
 - **Wolfenstein 3D** - Play the original Wolfenstein 3D game.
-- **Settings** - Settings Menu where you can change the background with preview and the background is saved to localStorage.
+- **Settings** - Settings menu where you can change the background with preview and the background is saved to localStorage.
 - **Taskbar** - Original Taskbar that reflects the open windows.
 - **Start Menu** - Resembles Original Start Menu.
+- **Pointers** - Taken from Windows 95.
+- **Original Sounds** - Taken from Windows 95.
 
 ## Built With
 - HTML / CSS / JavaScript
