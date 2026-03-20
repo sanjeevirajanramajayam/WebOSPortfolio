@@ -1,7 +1,3 @@
-if (localStorage.getItem("bg")) {
-  document.body.style.backgroundImage = localStorage.getItem("bg");
-}
-
 function updateTime() {
   var currentTime = dayjs().format("YYYY-MM-DD HH:mm A");
   var timeElement = document.getElementById("datetime");
@@ -152,15 +148,20 @@ document.addEventListener("click", (e) => {
 
 function makeVisible(window) {
   const card = document.querySelector(`[data-title="${window}"]`);
+  // console.log(card)
   card.style.display = "block";
 
   document.querySelectorAll("#window").forEach((element) => {
+    if (element.style.zIndex == 999999) {
+      return;
+    }
     element.style.zIndex = 10;
     element.closest(".card").classList.remove("card-tertiary");
   });
 
   card.style.zIndex = 9999;
   card.closest(".card").classList.add("card-tertiary");
+  console.log(card.closest(".card").classList, card.style.zIndex);
 
   const taskElement = document.querySelector(`[data-window="${window}"]`);
   if (taskElement) {
@@ -172,14 +173,14 @@ function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function cursor_wait() {
+async function cursor_wait(time) {
   document.body.style.cursor = `url('./cursor/Cursor_3.cur'), auto`;
-  await delay(1000);
+  await delay(time);
   document.body.style.cursor = `url('./cursor/arrow.cur'), auto`;
 }
 
 document.addEventListener("dblclick", async (e) => {
-  await cursor_wait();
+  await cursor_wait(2000);
   const btn = e.target.closest("[data-windowsrc]");
   const card = document.querySelector(
     `[data-title="${btn.dataset.windowsrc}"]`,
@@ -207,26 +208,53 @@ document.querySelectorAll(".desktop-icon").forEach((icon) => {
   dragElement(icon);
 });
 
-document.querySelector(".login-submit").addEventListener("click", (e) => {
+document.querySelector(".error-ok").addEventListener("click", (e) => {
+  e.target.closest(".card").style.display = "none";
+});
+
+document.querySelector(".login-submit").addEventListener("click", async (e) => {
   if (
     document.querySelector("#username").value == "admin" &&
     document.querySelector("#password").value == "1234"
   ) {
+    cursor_wait(1000);
     document.querySelector(".login-window").style.display = "none";
     const audio = new Audio("./audio/windows-95-startup-sound.mp3");
     audio.play();
-    audio.addEventListener("ended", () => {});
+    await cursor_wait(2000);
+    if (localStorage.getItem("bg")) {
+      document.body.style.backgroundImage = localStorage.getItem("bg");
+    }
     document.querySelector(".desktop").style.display = "block";
+    audio.addEventListener("ended", () => {});
   } else {
+    // makeVisible("error");
     let error_card = document.querySelector(`[data-title=error]`);
     const audio = new Audio("./audio/windows-95-error-sound-effect.mp3");
     audio.play();
-    document.querySelector(".error-ok").addEventListener("click", (e) => {
-      e.target.closest(".card").style.display = "none";
-    });
+    error_card.style.zIndex = 999999;
+
+    // document.querySelectorAll("#window").forEach((element) => {
+    //   if (element.style.zIndex != 999999) {
+    //     element.style.zIndex = 10;
+    //     element.classList.remove("card-tertiary");
+    //   } else {
+    //     console.log(element);
+    //   }
+    // });
+    console.log(error_card);
+    error_card.style.zIndex = 999999;
+    error_card.classList.add("card-tertiary");
+    // document.querySelector(".login-window").classList.remove("card-teritiary");
+    console.log()
     error_card.style.display = "block";
-    document.querySelector(".login-window").style.zIndex = "10";
-    error_card.style.zIndex = "99999999";
+    console.log(error_card);
+
+    // document.querySelector(".login-window").style.zIndex = "-1";
+    console.log(document.querySelector(".login-window").style.zIndex);
+    // error_card.style.zIndex = "99999999";
+    // error_card.style.display = "block";
+    console.log(error_card.style.zIndex);
   }
   // document.querySelector(".login-window").style.display = "none";
   // const audio = new Audio("./audio/windows-95-startup-sound.mp3");
@@ -268,14 +296,15 @@ if (document.querySelector(".download-btn")) {
         clearInterval(interval);
       }
     }, 200);
-
-    // e.target.parentElement.parentElement.querySelector(".download-progress").value = 20;
   });
 }
 console.log(width);
 document.querySelectorAll("#window").forEach((element) => {
   element.addEventListener("click", () => {
     document.querySelectorAll("#window").forEach((element) => {
+      if (element.style.zIndex == 999999) {
+        return;
+      }
       element.style.zIndex = 10;
       element.closest(".card").classList.remove("card-tertiary");
     });
@@ -294,54 +323,46 @@ document.querySelector(".start-btn").addEventListener("click", (e) => {
   }
 });
 
-document.querySelector(".logout-btn").addEventListener("click", (e) => {
-  document.querySelector(".login-window").style.display = "block";
+document.querySelector(".logout-btn").addEventListener("click", async (e) => {
   const audio = new Audio("./audio/windows-95-logout-sound-effect.mp3");
+  await cursor_wait(2000);
   audio.play();
-  audio.addEventListener("ended", () => {});
   document.querySelector(".desktop").style.display = "none";
   document.querySelector(".menu-bar").style.display = "none";
+  document.body.style.backgroundImage = "url('./images/background.png')";
+  document.querySelector(".login-window").style.display = "block";
 });
 
 document.querySelector(".settings-btn").addEventListener("click", (e) => {
-  // document.querySelector(".login-window").style.display = "block";
-  // const audio = new Audio("./audio/windows-95-logout-sound-effect.mp3");
-  // audio.play();
   makeVisible("settings");
-  // document.querySelector(".settings-window").style.display = "block";
-  // audio.addEventListener("ended", () => {});
-  // document.querySelector(".desktop").style.display = "none";
   document.querySelector(".menu-bar").style.display = "none";
 });
 
 document.querySelectorAll(".dummy-btn").forEach((element) => {
   element.addEventListener("click", (e) => {
-    // document.querySelector(".login-window").style.display = "block";
-    // const audio = new Audio("./audio/windows-95-logout-sound-effect.mp3");
-    // audio.play();
     document.querySelector(".dummy-window").style.display = "block";
-    // audio.addEventListener("ended", () => {});
-    // document.querySelector(".desktop").style.display = "none";
     document.querySelector(".menu-bar").style.display = "none";
   });
 });
 
-document.querySelector(".sleep-btn").addEventListener("click", (e) => {
-  document.querySelector(".login-window").style.display = "block";
+document.querySelector(".sleep-btn").addEventListener("click", async (e) => {
   const audio = new Audio("./audio/windows-95-logout-sound-effect.mp3");
+  await cursor_wait(2000);
   audio.play();
-  audio.addEventListener("ended", () => {});
   document.querySelector(".desktop").style.display = "none";
   document.querySelector(".menu-bar").style.display = "none";
+  document.body.style.backgroundImage = "url('./images/background.png')";
+  document.querySelector(".login-window").style.display = "block";
 });
 
-document.querySelector(".shutdown-btn").addEventListener("click", (e) => {
-  document.querySelector(".login-window").style.display = "block";
+document.querySelector(".shutdown-btn").addEventListener("click", async (e) => {
   const audio = new Audio("./audio/windows-95-logout-sound-effect.mp3");
+  await cursor_wait(2000);
   audio.play();
-  audio.addEventListener("ended", () => {});
   document.querySelector(".desktop").style.display = "none";
   document.querySelector(".menu-bar").style.display = "none";
+  document.body.style.backgroundImage = "url('./images/background.png')";
+  document.querySelector(".login-window").style.display = "block";
 });
 
 document.querySelector(".bg-apply").addEventListener("click", (e) => {
@@ -369,6 +390,5 @@ document.querySelectorAll(".tab").forEach((element) => {
     document
       .getElementById(`${element.dataset.set}`)
       .classList.add("is-active");
-    // document.target.element.id;
   });
 });

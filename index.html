@@ -60,9 +60,8 @@
 
     <!-- Error Window -->
 
-    <div class="card fixed card-tertiary top-1/3 -z-50 custom-window" style="display: none;" id="window"
-      data-title="error">
-      <div class="card-header flex justify-between">
+    <div class="card fixed card-tertiary top-1/3 left-1/3 custom-window" style="display: none;" id="window" data-title="error">
+      <div class="card-header flex justify-between" data-title="error">
         <span>Windows Networking</span>
         <div class="window-buttons flex items-center justify-center">
           <button class="btn btn-primary p-0! w-4 h-4" id="btn-minimize">
@@ -88,28 +87,28 @@
       </div>
     </div>
 
-    <div class="desktop">
+    <div class="desktop" style="display: none;">
       <!-- Desktop Icons -->
 
       <div class="flex justify-between h-screen">
         <div class="inline-flex p-4 gap-6 flex-col items-center">
-          <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="portfolio">
+          <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="dummy">
             <img src="images/explorer-desktop-icon.png" class="w-10 h-10" />
             <span class="text-white text-center">Explorer</span>
           </div>
-          <div class="desktop-icon flex justify-center items-center flex-col">
+          <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="dummy">
             <img src="images/mailbox-desktop-icon.png" class="w-10 h-10" />
             <span class="text-white text-center">Inbox</span>
           </div>
-          <div class="desktop-icon flex justify-center items-center flex-col">
+          <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="dummy">
             <img src="images/computer-desktop-icon.png" class="w-10 h-10" />
             <span class="text-white text-center">My Computer</span>
           </div>
-          <div class="desktop-icon flex justify-center items-center flex-col">
+          <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="dummy">
             <img src="images/network-desktop-icon.png" class="w-10 h-10" />
             <span class="text-white text-center">Network</span>
           </div>
-          <div class="desktop-icon flex justify-center items-center flex-col">
+          <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="dummy">
             <img src="images/recycle-desktop-icon.png" class="w-10 h-10" />
             <span class="text-white text-center">Recycle Bin</span>
           </div>
@@ -162,7 +161,7 @@
             <img src="./images/resume-desktop-icon.png" class="p-2 w-16 h-16">
             <div class=" flex flex-col gap-3">
               <p class="card-text m-0! w-full download-text">
-                Dowload Resume
+                Download Resume
               </p>
               <progress value="0" class="w-96! h-8! download-progress"></progress>
               <div class="flex justify-center">
@@ -176,7 +175,7 @@
 
       <!-- Settings Window -->
 
-      <div class="card fixed card-tertiary top-40 left-40 custom-window settings-window" id="window"
+      <div class="card fixed card-tertiary top-1/8 left-1/3 custom-window settings-window" id="window"
         data-title="settings" style="display: none;">
         <div class="card-header flex justify-between">
           <span>Settings</span>
@@ -341,7 +340,8 @@
               </figure>
               <p>
                 Then at
-                college, I was introuduced to full-stack development and leetcode.<br /> My foucs shifted to placements which is
+                college, I was introuduced to full-stack development and leetcode.<br /> My focus shifted to placements
+                which is
                 where
                 it
                 stands now.
@@ -352,7 +352,8 @@
             <div class="flex justify-between gap-4 items-center">
               <figure class="flex flex-col items-center justify-center">
                 <img src="./images/urlvidbg (1).gif" class="w-88" />
-                <figcaption style="font-family: VT323, monospace;" class="text-center">URL based Image Transformation Example
+                <figcaption style="font-family: VT323, monospace;" class="text-center">URL based Image Transformation
+                  Example
               </figure>
               <figure class="flex flex-col items-center justify-center">
                 <img src="./images/img-processing-demo.png" class="w-112 h-full" />
@@ -386,7 +387,8 @@
               <p class="text-center" style="font-family: 'VT323'; font-size: 1rem;">Windows 95 Portfolio</p>
               <p class="text-center">
                 This is a Portfolio that I made with HTML, CSS and JavaScript.<br />
-                The goal of this project is for me to showcase my projects, resume, portfolio and also to have anyone read my journey into coding.
+                The goal of this project is for me to showcase my projects, resume, portfolio and also to have anyone
+                read my journey into coding.
               </p>
             </div>
           </div>
@@ -461,7 +463,7 @@
 
       <!-- Not Implemented Window -->
 
-      <div class="card fixed card-tertiary top-1/3 -z-50 custom-window dummy-window" style="display: none;" id="window"
+      <div class="card fixed card-tertiary top-1/3 left-1/3 -z-50 custom-window dummy-window" style="display: none;" id="window"
         data-title="dummy">
         <div class="card-header flex justify-between">
           <span>Windows Networking</span>
@@ -476,7 +478,7 @@
           </div>
         </div>
         <div class="card-body">
-          <div class="flex gap-4 items-center justify-center ">
+          <div class="flex gap-4 items-center top-1/2 bottom-1/2 justify-center ">
             <img src="./images/error-dialog-box.png" class="w-8 h-8">
             <div class="flex flex-col ">
               <p class="card-text">This feature is not implemented. Please try the left hand side icons or settings.
@@ -568,7 +570,7 @@
           </div>
           <div data-window="resume" style="display: none;">
             <button class="btn btn-primary text-lg! text-center! flex! items-center!" data-window="portfolio">
-              <img src="./images/explorer-desktop-icon.png" class="h-4 w-4 m-1" />
+              <img src="./images/resume-desktop-icon.png" class="h-4 w-4 m-1" />
               <span class="btn-text">Resume</span>
             </button>
           </div>
@@ -585,7 +587,7 @@
             </button>
           </div>
           <div data-window="settings" style="display: none;">
-            <button class="btn btn-primary text-lg! text-center! flex! items-center!" data-window="projects">
+            <button class="btn btn-primary text-lg! text-center! flex! items-center!" data-window="settings">
               <img src="./images/menu-settings-icon.png" class="h-4 w-4 m-1" />
               <span class="btn-text">Settings</span>
             </button>
@@ -600,7 +602,7 @@
           </div>
         </div>
 
-        <div class="card fixed card-tertiary top-40 left-40 custom-window login-window none" id="window"
+        <div class="card fixed card-tertiary top-1/8 left-1/3 custom-window login-window none" id="window"
           data-title="game" style="display: none;">
           <div class="card-header flex justify-between">
             <span>Wolfenstein 3D</span>
