@@ -11,9 +11,16 @@ Try out the demo here
 
 [Live Demo](https://github.com/sanjeevirajanramajayam/WebOSPortfolio/deployments/github-pages)
 
+## Things you should try out now
+- Play Wolfenstein 3D Game.
+- See my portfolio, my projects and download my resume.
+- Change wallpaper through settings.
+- Drag the icons here and there like you just don't care.
+
 ## Screenshots
 <img width="1280" height="1079" alt="WINDOWS-95-SCREENSHOT-1" src="https://github.com/user-attachments/assets/d609c380-b684-4f46-bc05-d1533fcb93d3" />
 <img width="1280" height="934" alt="WINDOWS-95-SCREENSHOT-2" src="https://github.com/user-attachments/assets/4a8661c5-4872-4d11-b17f-93a1ce04870d" />
+
 
 ## Features
 
