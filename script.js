@@ -121,7 +121,7 @@ document.addEventListener("click", (e) => {
 
     const iframe = card.querySelector("iframe");
     if (iframe) {
-      iframe.src = ""; // stop game
+      iframe.src = "";
     }
     const card_title = card.dataset.title;
     const taskElement = document.querySelector(`[data-window="${card_title}"]`);
@@ -155,6 +155,9 @@ function makeVisible(window) {
     if (element.style.zIndex == 999999) {
       return;
     }
+    if (element.classList.contains("error-window")) {
+      return;
+    }
     element.style.zIndex = 10;
     element.closest(".card").classList.remove("card-tertiary");
   });
@@ -185,7 +188,15 @@ document.addEventListener("dblclick", async (e) => {
   const card = document.querySelector(
     `[data-title="${btn.dataset.windowsrc}"]`,
   );
-  if (!card) return;
+  if (btn.dataset.windowsrc === "dummy") {
+    const audio = new Audio("./audio/windows-95-error-sound-effect.mp3");
+    audio.play();
+    // document.querySelector(".dummy-window").style.display = "block";
+    makeVisible("dummy");
+
+    document.querySelector(".menu-bar").style.display = "none";
+    return;
+  }
 
   const iframe = card.querySelector("iframe");
   if (iframe) {
@@ -246,7 +257,7 @@ document.querySelector(".login-submit").addEventListener("click", async (e) => {
     error_card.style.zIndex = 999999;
     error_card.classList.add("card-tertiary");
     // document.querySelector(".login-window").classList.remove("card-teritiary");
-    console.log()
+    console.log();
     error_card.style.display = "block";
     console.log(error_card);
 
@@ -316,7 +327,7 @@ document.querySelectorAll("#window").forEach((element) => {
 document.querySelector(".start-btn").addEventListener("click", (e) => {
   console.log(document.querySelector(".menu-bar").style.display);
 
-  if (document.querySelector(".menu-bar").style.display === "") {
+  if (document.querySelector(".menu-bar").style.display === "" || document.querySelector(".menu-bar").style.display === "none") {
     document.querySelector(".menu-bar").style.display = "flex";
   } else {
     document.querySelector(".menu-bar").style.display = "";
@@ -340,7 +351,10 @@ document.querySelector(".settings-btn").addEventListener("click", (e) => {
 
 document.querySelectorAll(".dummy-btn").forEach((element) => {
   element.addEventListener("click", (e) => {
-    document.querySelector(".dummy-window").style.display = "block";
+    const audio = new Audio("./audio/windows-95-error-sound-effect.mp3");
+    audio.play();
+    // document.querySelector(".dummy-window").style.display = "block";
+    makeVisible("dummy");
     document.querySelector(".menu-bar").style.display = "none";
   });
 });
