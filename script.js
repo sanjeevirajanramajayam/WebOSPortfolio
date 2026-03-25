@@ -171,7 +171,7 @@ document.addEventListener("click", (e) => {
 
     const iframe = card.querySelector("iframe");
     if (iframe) {
-      iframe.src = "";
+      iframe.src = "about:blank";
     }
     const card_title = card.dataset.title;
     const taskElement = document.querySelector(`[data-window="${card_title}"]`);
@@ -222,7 +222,7 @@ function closeAllGuideWindows() {
     if (title === "game") {
       const gameFrame = card.querySelector("iframe");
       if (gameFrame) {
-        gameFrame.setAttribute("src", "");
+        gameFrame.setAttribute("src", "about:blank");
       }
     }
 
@@ -1493,7 +1493,7 @@ function applyStepUIState() {
       card.style.display = "none";
       const iframe = card.querySelector("iframe");
       if (iframe) {
-        iframe.setAttribute("src", "");
+        iframe.setAttribute("src", "about:blank");
       }
     }
 
