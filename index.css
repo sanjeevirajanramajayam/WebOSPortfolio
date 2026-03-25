@@ -1,8 +1,8 @@
 @font-face {
     font-family: 'Windows 95';
-    src: url(./fonts/w-95-sans-serif.woff2) format('woff2'), url(./fonts/w-95-sans-serif.woff) format('woff');
-    font-weight: 400;
-    font-style: normal
+    src: url(./fonts/w95fa.woff2) format('woff2');
+    font-weight: 600;
+    font-style: bold
 }
 
 * {
@@ -323,7 +323,17 @@ button.bg-white:hover {
     border-top: 2px solid #bdbdbd;
     border-left: 3px solid #bdbdbd;
     border-right: 3px solid #bdbdbd;
-    border-bottom: 2px solid #bdbdbd
+    border-bottom: 2px solid #bdbdbd;
+    /* font-size: 1rem; */
+}
+
+.card-text {
+    font-size: 1.0rem;
+    font-weight: 100;
+}
+
+.list-desc>li {
+    font-size: 1rem;
 }
 
 label {
@@ -369,14 +379,18 @@ body {
 }
 
 p,
+label,
 ul li {
     font-family: "Windows 95", sans-serif;
-    font-size: .6rem;
+    font-size: .9rem;
     font-weight: 300;
     line-height: 2
 }
 
 a {
+    font-family: "Windows 95", sans-serif;
+    font-size: 1.2rem;
+
     color: #000181;
     font-weight: 400
 }
@@ -435,7 +449,7 @@ a:hover {
     color: #ffffff;
 }
 
-.form-group>input {
+input {
     border-top: 2px solid #08080e;
     border-left: 2px solid #08080e;
     border-right: 2px solid #fcfcfc;
@@ -478,7 +492,86 @@ progress::-moz-progress-bar {
     }
 }
 
-/* scanlines */
+.bubble {
+    position: relative;
+    background: #fff3a9;
+    border: 2px solid #2f2f2f;
+    color: #222;
+    padding: 14px 16px;
+    font-size: 15px;
+    line-height: 1.35;
+    border-radius: 12px;
+    box-sizing: border-box;
+    bottom: 100%;
+    max-width: 250px;
+}
+
+.bubble::after {
+    content: "";
+    position: absolute;
+    right: 40px;
+    bottom: -14px;
+    border-width: 14px 12px 0;
+    border-style: solid;
+    border-color: #2f2f2f transparent transparent;
+}
+
+#clippy {
+  overflow: visible;
+}
+
+.bubble::before {
+    content: "";
+    position: absolute;
+    right: 42px;
+    bottom: -11px;
+    border-width: 12px 10px 0;
+    border-style: solid;
+    border-color: #fff3a9 transparent transparent;
+    z-index: 1;
+}
+
+.tour-overlay {
+    /* background-color: rgba(0, 0, 0, 0.7); */
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7);
+    /* fixed h-screen w-screen top-0 left-0 z-[999999000]  */
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top: '0px';
+    left: '0px';
+    pointer-events: none;
+}
+
+.tour-overlay svg {
+    pointer-events: none;
+}
+
+.tour-lock * {
+    pointer-events: none !important;
+}
+
+.tour-lock .tour-allow-click,
+.tour-lock .tour-allow-click * {
+    pointer-events: auto !important;
+}
+
+.clippy-overlay {
+    /* background-color: rgba(0, 0, 0, 0.7); */
+    /* box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7); */
+    /* fixed h-screen w-screen top-0 left-0 z-[999999000]  */
+    position: fixed;
+}
+
+.highlighted-elements {
+    position: relative;
+    z-index: 10000000;
+}
+
+.classic-icons {
+    height: fit-content;
+}
+
 .menu-bar::before,
 body::before {
     content: "";

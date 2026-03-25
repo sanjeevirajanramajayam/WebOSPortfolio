@@ -11,9 +11,23 @@
 
   <script src="script.js" defer></script>
 </head>
+<div id="clippy" class="clippy fixed z-50 bottom-20 right-10 flex flex-col gap-4 items-end">
+  <div class="bubble bottom-4 flex flex-col gap-2">
+    <p class="clippy-text">Hi! I am clippy.</p>
+    <div class="flex justify-between">
+      <button class="guide-prev-btn">Prev</button>
+      <button class="guide-next-btn">Next</button>
+    </div>
+  </div>
+  <img src="./images/clippy-idle.png" />
+</div>
 
 <body style="background-image: url(&quot;./images/background.png&quot;)" class="bg-cover object-fit h-screen">
+
   <div class="screen-wrapper">
+
+    <div class="tour-overlay fixed h-screen w-screen top-0 left-0 z-[999999000] "> </div>
+    <!-- <div class="tour-spotlight fixed z-[99999] border-2 border-white"></div> -->
 
     <!-- Login Window  -->
 
@@ -34,7 +48,7 @@
         <div class="flex gap-6">
           <img src="./images/login-img.png" class="w-16 h-16">
           <div class=" flex flex-col gap-3">
-            <p class="card-text m-0! w-full">
+            <p class=" m-0! w-full">
               Type a username and password and log on to Windows.
             </p>
             <div class="flex flex-col gap-2 ">
@@ -60,7 +74,8 @@
 
     <!-- Error Window -->
 
-    <div class="card fixed card-tertiary top-1/3 left-1/3 custom-window error-window" style="display: none;" id="window" data-title="error">
+    <div class="card fixed card-tertiary top-1/3 left-1/3 custom-window error-window" style="display: none;" id="window"
+      data-title="error">
       <div class="card-header flex justify-between" data-title="error">
         <span>Windows Networking</span>
         <div class="window-buttons flex items-center justify-center">
@@ -87,11 +102,11 @@
       </div>
     </div>
 
-    <div class="desktop" style="display: none;">
+    <div class="desktop">
       <!-- Desktop Icons -->
 
-      <div class="flex justify-between h-screen">
-        <div class="inline-flex p-4 gap-6 flex-col items-center">
+      <div class="desktop-icons-full flex justify-between h-screen">
+        <div class="classic-icons inline-flex p-4 gap-6 flex-col items-center">
           <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="dummy">
             <img src="images/explorer-desktop-icon.png" class="w-10 h-10" />
             <span class="text-white text-center">Explorer</span>
@@ -100,7 +115,7 @@
             <img src="images/mailbox-desktop-icon.png" class="w-10 h-10" />
             <span class="text-white text-center">Inbox</span>
           </div>
-          <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="dummy">
+          <div class="desktop-icon flex justify-center items-center flex-col computer-sys" data-windowsrc="dummy">
             <img src="images/computer-desktop-icon.png" class="w-10 h-10" />
             <span class="text-white text-center">My Computer</span>
           </div>
@@ -108,7 +123,7 @@
             <img src="images/network-desktop-icon.png" class="w-10 h-10" />
             <span class="text-white text-center">Network</span>
           </div>
-          <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="dummy">
+          <div class="desktop-icon flex justify-center items-center flex-col trash" data-windowsrc="dummy">
             <img src="images/recycle-desktop-icon.png" class="w-10 h-10" />
             <span class="text-white text-center">Recycle Bin</span>
           </div>
@@ -243,6 +258,137 @@
         </div>
       </div>
 
+      <!-- Explorer Window -->
+
+      <div class="card fixed card-tertiary top-1/8 left-1/3 custom-window settings-window" id="window"
+        data-title="explorer">
+        <div class="card-header flex justify-between">
+          <span>(C:)</span>
+          <div class="window-buttons flex items-center justify-center">
+            <button class="btn btn-primary p-0! w-4 h-4" id="btn-minimize">
+              _
+            </button>
+            <!-- <button class="btn btn-primary p-0! w-4 h-4" id="btn-maximize">
+              □
+            </button> -->
+            <button class="btn btn-primary p-0! w-4 h-4" id="btn-close">✕</button>
+          </div>
+        </div>
+        <div class="raised flex gap-4 py-0.2">
+          <div class="raised ml-0.5 py-0.2"></div>
+          <p><u>F</u>ile</p>
+          <p><u>E</u>dit</p>
+          <p><u>V</u>iew</p>
+          <p><u>G</u>o</p>
+          <p><u>F</u>avourites</p>
+          <p><u>H</u>elp</p>
+        </div>
+        <div class="raised flex py-0.2 items-center justify-center">
+          <div class="raised ml-0.5 py-0.2 h-full" style="height: stretch;"></div>
+          <div class="flex-1 flex items-center justify-between mx-2 mr-2 mt-2 mb-1">
+            <div class="flex gap-8 items-center w-full justify-center">
+              <div class="items-center flex justify-center flex-col">
+                <img src="./images/explorer-back-icon.png" class="w-7" />
+                <p class="text-[#808080]">Back</p>
+              </div>
+              <div class="items-center flex justify-center flex-col">
+                <img src="./images/explorer-forward-icon.png" class="w-7.5" />
+                <p class="text-[#808080]">Forward</p>
+              </div>
+              <div class="items-center flex justify-center flex-col">
+                <img src="./images/explorer-Up-icon.png" class="w-8" />
+                <p class="text-[#808080]">Up</p>
+              </div>
+            </div>
+            <div class="raised ml-0.5 h-full" style="height: stretch;"></div>
+
+            <div class="flex gap-8 w-full justify-center">
+              <div class="items-center flex justify-center flex-col">
+                <img src="./images/explorer-cut-icon.png" class="w-8" />
+                <p>Cut</p>
+              </div>
+              <div class="items-center flex justify-center flex-col">
+                <img src="./images/explorer-copy-icon.png" class="w-8" />
+                <p>Copy</p>
+              </div>
+              <div class="items-center flex justify-center flex-col">
+                <img src="./images/explorer-paste-icon.png" class="w-8" />
+                <p>Paste</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="raised flex py-0.2 items-center gap-2">
+          <div class="raised ml-0.5 py-0.2 h-full" style="height: stretch;"></div>
+          <p class=""><u>A</u>ddress</p>
+          <input id="address" type="text" autocomplete="off"
+            class="bg-white px-1 text-xs font-light w-[95%] h-[75%] mr-1"
+            style="font-family: 'VT323', monospace; font-size: 1rem;" />
+        </div>
+
+        <div class="card-body">
+
+          <div class="raised bg-[#f2f2e8]! w-120 h-80 grid grid-cols-6 gap-x-4 gap-y-1  items-start p-2 flex-wrap">
+            <div class=" flex justify-center items-center flex-col trash w-16 gap-2" data-windowsrc="dummy">
+              <img src="images/recycle-desktop-icon.png" class="w-6 h-6" />
+              <p class=" text-center m-0 leading-tight" style="line-height: 1.2; ">Recycle Bin</p>
+            </div>
+            <div class=" flex justify-center items-center flex-col computer-sys w-16 gap-2" data-windowsrc="dummy">
+              <img src="images/computer-desktop-icon.png" class="w-6 h-6" />
+              <p class=" text-center m-0 leading-tight" style="line-height: 1.2; ">My Computer</p>
+            </div>
+            <div class=" flex justify-center items-center flex-col w-16" data-windowsrc="dummy">
+              <img src="images/explorer-desktop-icon.png" class="w-6 h-6" />
+              <p class=" text-center">Explorer</p>
+            </div>
+            <div class=" flex justify-center items-center flex-col w-16" data-windowsrc="dummy">
+              <img src="images/explorer-desktop-icon.png" class="w-6 h-6" />
+              <p class=" text-center">Explorer</p>
+            </div>
+            <div class=" flex justify-center items-center flex-col w-16" data-windowsrc="dummy">
+              <img src="images/explorer-desktop-icon.png" class="w-6 h-6" />
+              <p class=" text-center">Explorer</p>
+            </div>
+            <div class=" flex justify-center items-center flex-col w-16" data-windowsrc="dummy">
+              <img src="images/explorer-desktop-icon.png" class="w-6 h-6" />
+              <p class=" text-center">Explorer</p>
+            </div>
+            <div class=" flex justify-center items-center flex-col w-16" data-windowsrc="dummy">
+              <img src="images/explorer-desktop-icon.png" class="w-6 h-6" />
+              <p class=" text-center">Explorer</p>
+            </div>
+            <div class=" flex justify-center items-center flex-col w-16" data-windowsrc="dummy">
+              <img src="images/explorer-desktop-icon.png" class="w-6 h-6" />
+              <p class=" text-center">Explorer</p>
+            </div>
+            <div class=" flex justify-center items-center flex-col" data-windowsrc="dummy">
+              <img src="images/explorer-desktop-icon.png" class="w-6 h-6" />
+              <p class=" text-center">Explorer</p>
+            </div>
+            <div class=" flex justify-center items-center flex-col" data-windowsrc="dummy">
+              <img src="images/explorer-desktop-icon.png" class="w-6 h-6" />
+              <p class=" text-center">Explorer</p>
+            </div>
+            <div class=" flex justify-center items-center flex-col" data-windowsrc="dummy">
+              <img src="images/explorer-desktop-icon.png" class="w-6 h-6" />
+              <p class=" text-center">Explorer</p>
+            </div>
+            <div class=" flex justify-center items-center flex-col" data-windowsrc="dummy">
+              <img src="images/explorer-desktop-icon.png" class="w-6 h-6" />
+              <p class=" text-center">Explorer</p>
+            </div>
+            <div class=" flex justify-center items-center flex-col" data-windowsrc="dummy">
+              <img src="images/explorer-desktop-icon.png" class="w-6 h-6" />
+              <p class=" text-center">Explorer</p>
+            </div>
+            <div class=" flex justify-center items-center flex-col" data-windowsrc="dummy">
+              <img src="images/explorer-desktop-icon.png" class="w-6 h-6" />
+              <p class=" text-center">Explorer</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Projects Window -->
 
       <div class="card fixed card-tertiary top-40 left-40 custom-window none" id="window" data-title="projects"
@@ -268,7 +414,7 @@
           </div>
           <div id="tab-1" class="tab-content is-active">
             <div class="flex gap-6 items-center m-2 justify-between">
-              <p class="card-text">When I was kid, I always really liked computers.<br /> My parents invested early in
+              <p>When I was kid, I always really liked computers.<br /> My parents invested early in
                 computers
                 and I have been using them since I was five. </p>
               <figure>
@@ -284,7 +430,7 @@
                 <img src="./images/RPI3B.webp" class="w-36" />
                 <figcaption style="font-family: VT323, monospace;" class="text-center">Raspberry Pi 3B</figcaption>
               </figure>
-              <p class="card-text">When I was in the sixth grade, I got really into retro gaming. In particular,
+              <p>When I was in the sixth grade, I got really into retro gaming. In particular,
                 emulating retro games.<br />
                 Through this I was introuduced to the Raspberry Pi 3B.<br />
                 I asked my uncle to get me one and was introuduced to Linux.</p>
@@ -396,7 +542,6 @@
         </div>
       </div>
 
-
       <!-- Portfolio Window -->
 
       <div class="card fixed card-tertiary top-40 left-40 custom-window" id="window" data-title="portfolio">
@@ -434,11 +579,11 @@
                 especially:
               </p>
 
-              <ul class="text-xs list-disc ml-4">
-                <li>React</li>
-                <li>Node.js</li>
-                <li>Full-stack web development</li>
-                <li>Problem solving and algorithms</li>
+              <ul class="list-desc ml-4">
+                <li>- React</li>
+                <li>- Node.js</li>
+                <li>- Full-stack web development</li>
+                <li>- Problem solving and algorithms</li>
               </ul>
 
               <p class="card-text">
@@ -449,7 +594,7 @@
               <p class="card-text">
                 You can find my work and coding profiles here:
               </p>
-              <div>
+              <div class="flex justify-between">
                 <a class="text-xs" target="_blank" href="https://github.com/sanjeevirajanramajayam  ">Github</a>
                 <a class="text-xs" target="_blank"
                   href="https://www.linkedin.com/in/sanjeevi-rajan-77588231a/">LinkedIn</a>
@@ -463,8 +608,8 @@
 
       <!-- Not Implemented Window -->
 
-      <div class="card fixed card-tertiary top-1/3 left-1/3 -z-50 custom-window dummy-window error-window" style="display: none;" id="window"
-        data-title="dummy">
+      <div class="card fixed card-tertiary top-1/3 left-1/3 -z-50 custom-window dummy-window error-window"
+        style="display: none;" id="window" data-title="dummy">
         <div class="card-header flex justify-between">
           <span>Windows Networking</span>
           <div class="window-buttons flex items-center justify-center">
@@ -481,7 +626,7 @@
           <div class="flex gap-4 items-center top-1/2 bottom-1/2 justify-center ">
             <img src="./images/error-dialog-box.png" class="w-8 h-8">
             <div class="flex flex-col ">
-              <p class="card-text">This feature is not implemented. Please try the left hand side icons or settings.
+              <p class="">This feature is not implemented. Please try the left hand side icons or settings.
               </p>
               <div class="flex justify-center">
                 <button
@@ -494,7 +639,7 @@
 
       <!-- Startup Menu -->
 
-      <div class="flex fixed w-50 bg-primary raised self-stretch h-112 menu-bar hidden z-9999" style="bottom: 48px;">
+      <div class="flex fixed w-50 bg-primary hidden raised self-stretch h-112 menu-bar z-9999" style="bottom: 48px;">
         <div class="">
           <p class="px-2 menu-bar-text rotate-180 raised h-full" style="font-family: Arial, Helvetica, sans-serif;">
             <span style="font-family: Arial, Helvetica, safns-serif;"
@@ -503,7 +648,7 @@
           </p>
         </div>
         <div class="flex flex-col gap-2 w-full ">
-          <div class="flex px-2 gap-2 py-1 mt-2 items-center hover:bg-[#0F0086] hover:text-white dummy-btn">
+          <div class="flex px-2 gap-2 py-1 mt-2  items-center hover:bg-[#0F0086] hover:text-white dummy-btn">
             <img src="./images/menu-program-icon.png" class="h-8 w-8" />
             <span class="font-xs">Programs</span>
           </div>
@@ -618,7 +763,7 @@
           </div>
           <div class="card-body">
             <div class="flex gap-6">
-              <iframe src="" width="640" height="480">
+                <iframe src="" width="640" height="480"></iframe>
             </div>
           </div>
         </div>
