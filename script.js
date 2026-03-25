@@ -1,7 +1,7 @@
 const desktopIcons = document.querySelectorAll(".desktop-icon");
 const menuBar = document.querySelector(".menu-bar");
 const windows = document.querySelectorAll("#window");
-const WOLF3D_URL = "https://git.nihilogic.dk/wolf3d/";
+const WOLF3D_URL = "";
 function updateTime() {
   var currentTime = dayjs().format("YYYY-MM-DD HH:mm A");
   var timeElement = document.getElementById("datetime");
