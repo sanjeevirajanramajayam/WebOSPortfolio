@@ -2,6 +2,10 @@ const desktopIcons = document.querySelectorAll(".desktop-icon");
 const menuBar = document.querySelector(".menu-bar");
 const windows = document.querySelectorAll("#window");
 const WOLF3D_URL = "";
+  localStorage.setItem("webos-tour-completed", "true");
+  // location.reload();
+
+
 function updateTime() {
   var currentTime = dayjs().format("YYYY-MM-DD HH:mm A");
   var timeElement = document.getElementById("datetime");
@@ -167,6 +171,9 @@ windows.forEach((element) => {
 document.addEventListener("click", (e) => {
   if (e.target.id == "btn-close") {
     const card = e.target.closest(".card");
+    if (!card) {
+      return;
+    }
     card.style.display = "none";
 
     const iframe = card.querySelector("iframe");
@@ -175,7 +182,9 @@ document.addEventListener("click", (e) => {
     }
     const card_title = card.dataset.title;
     const taskElement = document.querySelector(`[data-window="${card_title}"]`);
-    taskElement.style.display = "none";
+    if (taskElement) {
+      taskElement.style.display = "none";
+    }
     console.log(card_title, taskElement);
   }
 });
@@ -278,6 +287,9 @@ centerVisibleWindowsOnLoad();
 
 function makeVisible(window) {
   const card = document.querySelector(`[data-title="${window}"]`);
+  if (!card) {
+    return;
+  }
   // console.log(card)
   card.style.display = "block";
   centerCardByDefault(card);
@@ -346,10 +358,6 @@ document.addEventListener("dblclick", async (e) => {
     makeVisible("game");
     loadWolf3D(true);
     return;
-  }
-
-  if (targetWindow === "about-me" && card?.querySelector("iframe")) {
-    card.querySelector("iframe").src = WOLF3D_URL;
   }
 
   makeVisible(targetWindow);
@@ -1324,8 +1332,7 @@ const guideList = [
     clippyImage: "./images/clippy-left.png",
   },
   {
-    clippyText:
-      "Tour complete. Use Prev to review this walkthrough.",
+    clippyText: "Tour complete. Use Prev to review this walkthrough.",
     classes: ["#clippy"],
     includeClippyCutout: true,
     closeWindows: ["game"],
@@ -1627,7 +1634,8 @@ function showClippyJumpscare() {
       display: "none",
       justifyContent: "center",
       alignItems: "center",
-      background: "#000 url('./images/byod.webp') center center / cover no-repeat",
+      background:
+        "#000 url('./images/byod.webp') center center / cover no-repeat",
       pointerEvents: "none",
     });
 
@@ -1768,8 +1776,7 @@ let count = 0;
 let clicks = [];
 
 document.querySelector("#clippy").addEventListener("click", (e) => {
-  const hasCompletedTour =
-    localStorage.getItem(TOUR_COMPLETED_KEY) === "true";
+  const hasCompletedTour = localStorage.getItem(TOUR_COMPLETED_KEY) === "true";
   if (!hasCompletedTour) {
     return;
   }
@@ -1786,8 +1793,20 @@ document.querySelector("#clippy").addEventListener("click", (e) => {
 
     const positions = [
       { top: "auto", right: "40px", bottom: "80px", left: "auto", mode: null },
-      { top: "40px", right: "40px", bottom: "auto", left: "auto", mode: "clippy-top-right" },
-      { top: "40px", right: "auto", bottom: "auto", left: "20px", mode: "clippy-top-left" },
+      {
+        top: "40px",
+        right: "40px",
+        bottom: "auto",
+        left: "auto",
+        mode: "clippy-top-right",
+      },
+      {
+        top: "40px",
+        right: "auto",
+        bottom: "auto",
+        left: "20px",
+        mode: "clippy-top-left",
+      },
       { top: "auto", right: "auto", bottom: "80px", left: "20px", mode: null },
     ];
 
