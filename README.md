@@ -26,7 +26,7 @@ Try out the demo here
 
 ## Features
 
-- **Login Page** - Password protected login screen made exactly like the original. **Username - admin. Password - 1234.**
+- **Login Page** - Password protected login screen made exactly like the original. **Username - admin. Password - 1234**
 - **Draggable Windows** - Draggable Windows with working close and minimize buttons.  
 - **CRT Effect** - Effect that resemble the original CRTs of that time.
 - **Portfolio** - View my Portfolio through the desktop icon.
