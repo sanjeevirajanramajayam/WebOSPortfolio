@@ -11,16 +11,6 @@
 
   <script src="script.js" defer></script>
 </head>
-<div id="clippy" class="clippy fixed z-50 bottom-20 right-10 flex flex-col gap-4 items-end">
-  <div class="bubble bottom-4 flex flex-col gap-2">
-    <p class="clippy-text">Hi! I am clippy.</p>
-    <div class="flex justify-between">
-      <button class="guide-prev-btn">Prev</button>
-      <button class="guide-next-btn">Next</button>
-    </div>
-  </div>
-  <img src="./images/clippy-idle.png" />
-</div>
 
 <body style="background-image: url(&quot;./images/background.png&quot;)" class="bg-cover object-fit h-screen">
 
@@ -30,6 +20,8 @@
     <!-- <div class="tour-spotlight fixed z-[99999] border-2 border-white"></div> -->
 
     <!-- Login Window  -->
+
+
 
     <div class="card fixed card-tertiary top-40 left-40 custom-window login-window none" id="window" data-title="login">
       <div class="card-header flex justify-between">
@@ -55,12 +47,12 @@
               <div class="form-group flex items-center gap-2">
                 <label for="username" class="w-15">Username: </label>
                 <input id="username" type="text" autocomplete="off" class="bg-white px-1 text-xs font-light"
-                  style="font-family: 'VT323', monospace; font-size: 1rem;" />
+                  style="font-family: 'VT323', monospace; font-size: 1rem;" placeholder="admin"/>
               </div>
               <div class="form-group flex items-center gap-2">
                 <label for="password" class="w-15">Password: </label>
                 <input id="password" type="password" class="bg-white px-1 text-xs font-light"
-                  style="font-family: 'VT323', monospace; font-size: 1rem;" autocomplete="off" />
+                  style="font-family: 'VT323', monospace; font-size: 1rem;" autocomplete="off" placeholder="1234"/>
               </div>
             </div>
           </div>
@@ -102,28 +94,40 @@
       </div>
     </div>
 
-    <div class="desktop">
+    <div class="desktop" style="display: none;">
+
+      <div id="clippy" class="clippy  fixed z-50 bottom-20 right-10 flex flex-col gap-4 items-end">
+        <div class="bubble bottom-4 flex flex-col gap-2">
+          <p class="clippy-text">Hi! I am clippy.</p>
+          <div class="flex justify-between">
+            <button class="guide-prev-btn">Prev</button>
+            <button class="guide-next-btn">Next</button>
+          </div>
+        </div>
+        <img src="./images/clippy-idle.png" />
+      </div>
+
       <!-- Desktop Icons -->
 
       <div class="desktop-icons-full flex justify-between h-screen">
         <div class="classic-icons inline-flex p-4 gap-6 flex-col items-center">
-          <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="dummy">
+          <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="explorer"
+            data-explorer-path="C:\\">
             <img src="images/explorer-desktop-icon.png" class="w-10 h-10" />
             <span class="text-white text-center">Explorer</span>
           </div>
-          <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="dummy">
-            <img src="images/mailbox-desktop-icon.png" class="w-10 h-10" />
-            <span class="text-white text-center">Inbox</span>
-          </div>
-          <div class="desktop-icon flex justify-center items-center flex-col computer-sys" data-windowsrc="dummy">
+          <div class="desktop-icon flex justify-center items-center flex-col computer-sys" data-windowsrc="explorer"
+            data-explorer-path="C:\\My Computer">
             <img src="images/computer-desktop-icon.png" class="w-10 h-10" />
             <span class="text-white text-center">My Computer</span>
           </div>
-          <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="dummy">
+          <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="explorer"
+            data-explorer-path="C:\\Computer Network">
             <img src="images/network-desktop-icon.png" class="w-10 h-10" />
             <span class="text-white text-center">Network</span>
           </div>
-          <div class="desktop-icon flex justify-center items-center flex-col trash" data-windowsrc="dummy">
+          <div class="desktop-icon flex justify-center items-center flex-col trash" data-windowsrc="explorer"
+            data-explorer-path="C:\\Recycle Bin">
             <img src="images/recycle-desktop-icon.png" class="w-10 h-10" />
             <span class="text-white text-center">Recycle Bin</span>
           </div>
@@ -133,9 +137,9 @@
           style="display: none;"></a>
 
         <div class="inline-flex p-4 gap-6 flex-col items-center">
-          <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="portfolio">
+          <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="about-me">
             <img src="images/portfolio-desktop.png" class="w-10 h-10" />
-            <span class="text-white text-center">Portfolio</span>
+            <span class="text-white text-center">About Me</span>
           </div>
 
           <div class="desktop-icon flex justify-center items-center flex-col" data-windowsrc="resume">
@@ -261,7 +265,7 @@
       <!-- Explorer Window -->
 
       <div class="card fixed card-tertiary top-1/8 left-1/3 custom-window settings-window" id="window"
-        data-title="explorer">
+        data-title="explorer" style="display: none;">
         <div class="card-header flex justify-between">
           <span>(C:)</span>
           <div class="window-buttons flex items-center justify-center">
@@ -287,15 +291,15 @@
           <div class="raised ml-0.5 py-0.2 h-full" style="height: stretch;"></div>
           <div class="flex-1 flex items-center justify-between mx-2 mr-2 mt-2 mb-1">
             <div class="flex gap-8 items-center w-full justify-center">
-              <div class="items-center flex justify-center flex-col">
+              <div class="items-center flex justify-center flex-col clickable" data-fm-action="back">
                 <img src="./images/explorer-back-icon.png" class="w-7" />
                 <p class="text-[#808080]">Back</p>
               </div>
-              <div class="items-center flex justify-center flex-col">
+              <div class="items-center flex justify-center flex-col clickable" data-fm-action="forward">
                 <img src="./images/explorer-forward-icon.png" class="w-7.5" />
                 <p class="text-[#808080]">Forward</p>
               </div>
-              <div class="items-center flex justify-center flex-col">
+              <div class="items-center flex justify-center flex-col clickable" data-fm-action="up">
                 <img src="./images/explorer-Up-icon.png" class="w-8" />
                 <p class="text-[#808080]">Up</p>
               </div>
@@ -303,15 +307,15 @@
             <div class="raised ml-0.5 h-full" style="height: stretch;"></div>
 
             <div class="flex gap-8 w-full justify-center">
-              <div class="items-center flex justify-center flex-col">
+              <div class="items-center flex justify-center flex-col clickable" data-fm-action="cut">
                 <img src="./images/explorer-cut-icon.png" class="w-8" />
                 <p>Cut</p>
               </div>
-              <div class="items-center flex justify-center flex-col">
+              <div class="items-center flex justify-center flex-col clickable" data-fm-action="copy">
                 <img src="./images/explorer-copy-icon.png" class="w-8" />
                 <p>Copy</p>
               </div>
-              <div class="items-center flex justify-center flex-col">
+              <div class="items-center flex justify-center flex-col clickable" data-fm-action="paste">
                 <img src="./images/explorer-paste-icon.png" class="w-8" />
                 <p>Paste</p>
               </div>
@@ -321,70 +325,14 @@
         <div class="raised flex py-0.2 items-center gap-2">
           <div class="raised ml-0.5 py-0.2 h-full" style="height: stretch;"></div>
           <p class=""><u>A</u>ddress</p>
-          <input id="address" type="text" autocomplete="off"
+          <input id="explorer-address" type="text" autocomplete="off"
             class="bg-white px-1 text-xs font-light w-[95%] h-[75%] mr-1"
             style="font-family: 'VT323', monospace; font-size: 1rem;" />
         </div>
 
         <div class="card-body">
-
-          <div class="raised bg-[#f2f2e8]! w-120 h-80 grid grid-cols-6 gap-x-4 gap-y-1  items-start p-2 flex-wrap">
-            <div class=" flex justify-center items-center flex-col trash w-16 gap-2" data-windowsrc="dummy">
-              <img src="images/recycle-desktop-icon.png" class="w-6 h-6" />
-              <p class=" text-center m-0 leading-tight" style="line-height: 1.2; ">Recycle Bin</p>
-            </div>
-            <div class=" flex justify-center items-center flex-col computer-sys w-16 gap-2" data-windowsrc="dummy">
-              <img src="images/computer-desktop-icon.png" class="w-6 h-6" />
-              <p class=" text-center m-0 leading-tight" style="line-height: 1.2; ">My Computer</p>
-            </div>
-            <div class=" flex justify-center items-center flex-col w-16" data-windowsrc="dummy">
-              <img src="images/explorer-desktop-icon.png" class="w-6 h-6" />
-              <p class=" text-center">Explorer</p>
-            </div>
-            <div class=" flex justify-center items-center flex-col w-16" data-windowsrc="dummy">
-              <img src="images/explorer-desktop-icon.png" class="w-6 h-6" />
-              <p class=" text-center">Explorer</p>
-            </div>
-            <div class=" flex justify-center items-center flex-col w-16" data-windowsrc="dummy">
-              <img src="images/explorer-desktop-icon.png" class="w-6 h-6" />
-              <p class=" text-center">Explorer</p>
-            </div>
-            <div class=" flex justify-center items-center flex-col w-16" data-windowsrc="dummy">
-              <img src="images/explorer-desktop-icon.png" class="w-6 h-6" />
-              <p class=" text-center">Explorer</p>
-            </div>
-            <div class=" flex justify-center items-center flex-col w-16" data-windowsrc="dummy">
-              <img src="images/explorer-desktop-icon.png" class="w-6 h-6" />
-              <p class=" text-center">Explorer</p>
-            </div>
-            <div class=" flex justify-center items-center flex-col w-16" data-windowsrc="dummy">
-              <img src="images/explorer-desktop-icon.png" class="w-6 h-6" />
-              <p class=" text-center">Explorer</p>
-            </div>
-            <div class=" flex justify-center items-center flex-col" data-windowsrc="dummy">
-              <img src="images/explorer-desktop-icon.png" class="w-6 h-6" />
-              <p class=" text-center">Explorer</p>
-            </div>
-            <div class=" flex justify-center items-center flex-col" data-windowsrc="dummy">
-              <img src="images/explorer-desktop-icon.png" class="w-6 h-6" />
-              <p class=" text-center">Explorer</p>
-            </div>
-            <div class=" flex justify-center items-center flex-col" data-windowsrc="dummy">
-              <img src="images/explorer-desktop-icon.png" class="w-6 h-6" />
-              <p class=" text-center">Explorer</p>
-            </div>
-            <div class=" flex justify-center items-center flex-col" data-windowsrc="dummy">
-              <img src="images/explorer-desktop-icon.png" class="w-6 h-6" />
-              <p class=" text-center">Explorer</p>
-            </div>
-            <div class=" flex justify-center items-center flex-col" data-windowsrc="dummy">
-              <img src="images/explorer-desktop-icon.png" class="w-6 h-6" />
-              <p class=" text-center">Explorer</p>
-            </div>
-            <div class=" flex justify-center items-center flex-col" data-windowsrc="dummy">
-              <img src="images/explorer-desktop-icon.png" class="w-6 h-6" />
-              <p class=" text-center">Explorer</p>
-            </div>
+          <div id="explorer-file-grid"
+            class="raised bg-[#f2f2e8]! w-120 h-80 grid grid-cols-6 gap-x-4 gap-y-1 items-start p-2 flex-wrap overflow-auto">
           </div>
         </div>
       </div>
@@ -530,10 +478,10 @@
 
             </div>
             <div>
-              <p class="text-center" style="font-family: 'VT323'; font-size: 1rem;">Windows 95 Portfolio</p>
+              <p class="text-center" style="font-family: 'VT323'; font-size: 1rem;">Windows 95 About Me</p>
               <p class="text-center">
-                This is a Portfolio that I made with HTML, CSS and JavaScript.<br />
-                The goal of this project is for me to showcase my projects, resume, portfolio and also to have anyone
+                This is an About Me site that I made with HTML, CSS and JavaScript.<br />
+                The goal of this project is for me to showcase my projects, resume, about me and also to have anyone
                 read my journey into coding.
               </p>
             </div>
@@ -542,11 +490,11 @@
         </div>
       </div>
 
-      <!-- Portfolio Window -->
+      <!-- About Me Window -->
 
-      <div class="card fixed card-tertiary top-40 left-40 custom-window" id="window" data-title="portfolio">
+      <div class="card fixed card-tertiary top-40 left-40 custom-window" style="display: none;" id="window" data-title="about-me">
         <div class="card-header flex justify-between">
-          <span>Portfolio</span>
+          <span>About Me</span>
           <div class="window-buttons flex items-center justify-center">
             <button class="btn btn-primary p-0! w-4 h-4" id="btn-minimize">
               _
@@ -563,7 +511,7 @@
             <div>
               <p class="card-text font-bold">Hey there 👋</p>
 
-              <p class="card-text">This is my personal portfolio website.</p>
+              <p class="card-text">This is my personal about me website.</p>
 
               <p class="card-text">
                 I am <b>Sanjeevi Rajan Ramajayam</b> from Tamil Nadu, India.
@@ -648,17 +596,20 @@
           </p>
         </div>
         <div class="flex flex-col gap-2 w-full ">
-          <div class="flex px-2 gap-2 py-1 mt-2  items-center hover:bg-[#0F0086] hover:text-white dummy-btn">
+          <div class="flex px-2 gap-2 py-1 mt-2 items-center hover:bg-[#0F0086] hover:text-white"
+            data-explorer-path="C:\Programs">
             <img src="./images/menu-program-icon.png" class="h-8 w-8" />
             <span class="font-xs">Programs</span>
           </div>
 
-          <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white dummy-btn">
+          <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white"
+            data-explorer-path="C:\Favourites">
             <img src="./images/menu-favourite-icon.png" class="h-8 w-8" />
             <span class="font-xs">Favourites</span>
           </div>
 
-          <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white dummy-btn">
+          <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white"
+            data-explorer-path="C:\Documents">
             <img src="./images/menu-document-icon.png" class="h-8 w-8" />
             <span class="font-xs">Documents</span>
           </div>
@@ -668,7 +619,7 @@
             <span class="font-xs">Settings</span>
           </div>
 
-          <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white dummy-btn">
+          <div class="flex px-2 gap-2 py-1 items-center hover:bg-[#0F0086] hover:text-white" data-explorer-path="C:\">
             <img src="./images/menu-find-icon.png" class="h-8 w-8" />
             <span class="font-xs">Find</span>
           </div>
@@ -707,14 +658,20 @@
             <span class="btn-text">Start</span>
           </button>
           <div class="divider m-1!"></div>
-          <div data-window="portfolio">
-            <button class="btn btn-primary text-lg! text-center! flex! items-center!" data-window="portfolio">
+          <div data-window="explorer" style="display: none;">
+            <button class="btn btn-primary text-lg! text-center! flex! items-center!" data-window="explorer">
               <img src="./images/explorer-desktop-icon.png" class="h-4 w-4 m-1" />
-              <span class="btn-text">Portfolio</span>
+              <span class="btn-text">Explorer</span>
+            </button>
+          </div>
+          <div data-window="about-me" style="display: none;">
+            <button class="btn btn-primary text-lg! text-center! flex! items-center!" data-window="about-me">
+              <img src="./images/explorer-desktop-icon.png" class="h-4 w-4 m-1" />
+              <span class="btn-text">About Me</span>
             </button>
           </div>
           <div data-window="resume" style="display: none;">
-            <button class="btn btn-primary text-lg! text-center! flex! items-center!" data-window="portfolio">
+            <button class="btn btn-primary text-lg! text-center! flex! items-center!" data-window="resume">
               <img src="./images/resume-desktop-icon.png" class="h-4 w-4 m-1" />
               <span class="btn-text">Resume</span>
             </button>
@@ -763,7 +720,7 @@
           </div>
           <div class="card-body">
             <div class="flex gap-6">
-                <iframe src="" width="640" height="480"></iframe>
+              <iframe src="" width="640" height="480"></iframe>
             </div>
           </div>
         </div>

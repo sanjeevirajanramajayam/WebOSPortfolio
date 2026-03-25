@@ -233,10 +233,54 @@ function closeAllGuideWindows() {
   });
 }
 
+function centerCardInViewport(card) {
+  if (!card) {
+    return false;
+  }
+
+  const rect = card.getBoundingClientRect();
+  if (rect.width === 0 || rect.height === 0) {
+    return false;
+  }
+
+  const top = Math.max(0, (window.innerHeight - rect.height) / 2);
+  const left = Math.max(0, (window.innerWidth - rect.width) / 2);
+
+  card.style.position = "fixed";
+  card.style.top = `${top}px`;
+  card.style.left = `${left}px`;
+  card.style.right = "auto";
+  card.style.bottom = "auto";
+  card.style.transform = "none";
+  return true;
+}
+
+function centerCardByDefault(card) {
+  if (!card || card.dataset.defaultCentered === "true") {
+    return;
+  }
+
+  if (centerCardInViewport(card)) {
+    card.dataset.defaultCentered = "true";
+  }
+}
+
+function centerVisibleWindowsOnLoad() {
+  document.querySelectorAll(".card[data-title]").forEach((card) => {
+    const isVisible = window.getComputedStyle(card).display !== "none";
+    if (isVisible) {
+      centerCardByDefault(card);
+    }
+  });
+}
+
+centerVisibleWindowsOnLoad();
+
 function makeVisible(window) {
   const card = document.querySelector(`[data-title="${window}"]`);
   // console.log(card)
   card.style.display = "block";
+  centerCardByDefault(card);
 
   if (window === "game") {
     loadWolf3D();
@@ -280,6 +324,13 @@ document.addEventListener("dblclick", async (e) => {
   }
 
   await cursor_wait(2000);
+  const explorerPath = btn.dataset.explorerPath;
+  if (explorerPath) {
+    openExplorerToPath(explorerPath);
+    menuBar.style.display = "none";
+    return;
+  }
+
   const targetWindow = btn.dataset.windowsrc;
   const card = document.querySelector(`[data-title="${targetWindow}"]`);
 
@@ -297,7 +348,7 @@ document.addEventListener("dblclick", async (e) => {
     return;
   }
 
-  if (targetWindow === "portfolio" && card?.querySelector("iframe")) {
+  if (targetWindow === "about-me" && card?.querySelector("iframe")) {
     card.querySelector("iframe").src = WOLF3D_URL;
   }
 
@@ -446,6 +497,14 @@ document.querySelectorAll(".dummy-btn").forEach((element) => {
   });
 });
 
+document.querySelectorAll("[data-explorer-path]").forEach((element) => {
+  element.addEventListener("click", () => {
+    const targetPath = element.dataset.explorerPath;
+    openExplorerToPath(targetPath);
+    menuBar.style.display = "none";
+  });
+});
+
 document.querySelector(".sleep-btn").addEventListener("click", async (e) => {
   const audio = new Audio("./audio/windows-95-logout-sound-effect.mp3");
   await cursor_wait(2000);
@@ -506,6 +565,553 @@ document.querySelectorAll(".tab").forEach((element) => {
     }
   });
 });
+
+const explorerAddressInput = document.querySelector("#explorer-address");
+const explorerFileGrid = document.querySelector("#explorer-file-grid");
+const explorerToolbarActions = document.querySelectorAll("[data-fm-action]");
+
+const explorerIconByType = {
+  folder: "./images/explorer-desktop-icon.png",
+  app: "./images/explorer-desktop-icon.png",
+  file: "./images/explorer-desktop-icon.png",
+};
+
+const explorerRoot = {
+  name: "C:",
+  type: "folder",
+  children: [
+    {
+      name: "Desktop",
+      type: "folder",
+      children: [
+        {
+          name: "About Me",
+          type: "app",
+          window: "about-me",
+          icon: "./images/portfolio-desktop.png",
+        },
+        {
+          name: "Resume",
+          type: "app",
+          window: "resume",
+          icon: "./images/resume-desktop-icon.png",
+        },
+        {
+          name: "Projects",
+          type: "app",
+          window: "projects",
+          icon: "./images/desktop-projects-icon.png",
+        },
+      ],
+    },
+    {
+      name: "Programs",
+      type: "folder",
+      children: [
+        {
+          name: "Accessories",
+          type: "folder",
+          children: [
+            {
+              name: "Notepad.lnk",
+              type: "app",
+              window: "dummy",
+              icon: "./images/menu-program-icon.png",
+            },
+            {
+              name: "Paint.lnk",
+              type: "app",
+              window: "dummy",
+              icon: "./images/menu-program-icon.png",
+            },
+          ],
+        },
+        {
+          name: "Games.lnk",
+          type: "app",
+          window: "dummy",
+          icon: "./images/menu-program-icon.png",
+        },
+        {
+          name: "Startup.lnk",
+          type: "app",
+          window: "dummy",
+          icon: "./images/menu-program-icon.png",
+        },
+      ],
+    },
+    {
+      name: "Favourites",
+      type: "folder",
+      children: [
+        {
+          name: "Coding Sites.url",
+          type: "file",
+          icon: "./images/menu-favourite-icon.png",
+        },
+        {
+          name: "Music Playlist.url",
+          type: "file",
+          icon: "./images/menu-favourite-icon.png",
+        },
+        {
+          name: "Retro Wallpapers.url",
+          type: "file",
+          icon: "./images/menu-favourite-icon.png",
+        },
+      ],
+    },
+    {
+      name: "Documents",
+      type: "folder",
+      children: [
+        {
+          name: "todo.txt",
+          type: "file",
+          icon: "./images/menu-document-icon.png",
+        },
+        {
+          name: "notes.txt",
+          type: "file",
+          icon: "./images/menu-document-icon.png",
+        },
+        {
+          name: "ideas.txt",
+          type: "file",
+          icon: "./images/menu-document-icon.png",
+        },
+      ],
+    },
+    {
+      name: "Games",
+      type: "folder",
+      children: [
+        {
+          name: "Wolfenstein 3D",
+          type: "app",
+          window: "game",
+          icon: "./images/wolf3d-desktop-icon.png",
+        },
+      ],
+    },
+    {
+      name: "Control Panel",
+      type: "app",
+      window: "settings",
+      icon: "./images/menu-settings-icon.png",
+    },
+    {
+      name: "My Computer",
+      type: "folder",
+      icon: "./images/computer-desktop-icon.png",
+      children: [
+        {
+          name: "Local Disk",
+          type: "folder",
+          children: [
+            {
+              name: "Program Files",
+              type: "folder",
+              children: [],
+            },
+            {
+              name: "Windows",
+              type: "folder",
+              children: [],
+            },
+            {
+              name: "Users",
+              type: "folder",
+              children: [],
+            },
+          ],
+        },
+        {
+          name: "Control Panel.lnk",
+          type: "app",
+          window: "settings",
+          icon: "./images/menu-settings-icon.png",
+        },
+      ],
+    },
+    {
+      name: "Computer Network",
+      type: "folder",
+      icon: "./images/network-desktop-icon.png",
+      children: [
+        {
+          name: "WORKGROUP",
+          type: "folder",
+          children: [
+            {
+              name: "OFFICE-PC",
+              type: "app",
+              window: "dummy",
+              icon: "./images/network-desktop-icon.png",
+            },
+            {
+              name: "HOME-LAPTOP",
+              type: "app",
+              window: "dummy",
+              icon: "./images/network-desktop-icon.png",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: "Recycle Bin",
+      type: "folder",
+      icon: "./images/recycle-desktop-icon.png",
+      children: [
+        {
+          name: "Old Notes.txt",
+          type: "file",
+          icon: "./images/menu-document-icon.png",
+        },
+        {
+          name: "Temp Shortcut.lnk",
+          type: "file",
+          icon: "./images/explorer-desktop-icon.png",
+        },
+      ],
+    },
+    {
+      name: "readme.txt",
+      type: "file",
+      icon: "./images/explorer-desktop-icon.png",
+    },
+  ],
+};
+
+const explorerState = {
+  path: ["C:"],
+  history: [["C:"]],
+  historyIndex: 0,
+  selectedName: null,
+  clipboard: null,
+};
+
+function cloneExplorerEntry(entry) {
+  return JSON.parse(JSON.stringify(entry));
+}
+
+function getExplorerNode(path) {
+  let node = explorerRoot;
+  for (let index = 1; index < path.length; index += 1) {
+    const segment = path[index];
+    node =
+      node?.children?.find(
+        (child) => child.type === "folder" && child.name === segment,
+      ) || null;
+    if (!node) {
+      break;
+    }
+  }
+  return node;
+}
+
+function getExplorerPathLabel(path) {
+  return path.join("\\");
+}
+
+function normalizeExplorerPath(pathText) {
+  const normalized = pathText.replace(/\//g, "\\").trim();
+  if (!normalized) {
+    return ["C:"];
+  }
+
+  const parts = normalized
+    .split("\\")
+    .map((part) => part.trim())
+    .filter(Boolean);
+
+  if (!parts.length) {
+    return ["C:"];
+  }
+
+  if (parts[0].toUpperCase() !== "C:") {
+    parts.unshift("C:");
+  }
+
+  parts[0] = "C:";
+  return parts;
+}
+
+function pushExplorerHistory(path) {
+  explorerState.history = explorerState.history.slice(
+    0,
+    explorerState.historyIndex + 1,
+  );
+  explorerState.history.push([...path]);
+  explorerState.historyIndex = explorerState.history.length - 1;
+}
+
+function renderExplorerFiles() {
+  if (!explorerFileGrid || !explorerAddressInput) {
+    return;
+  }
+
+  const currentFolder = getExplorerNode(explorerState.path);
+  if (!currentFolder || currentFolder.type !== "folder") {
+    explorerFileGrid.innerHTML = "";
+    return;
+  }
+
+  explorerAddressInput.value = getExplorerPathLabel(explorerState.path);
+  explorerFileGrid.innerHTML = "";
+  explorerFileGrid.style.gridAutoRows = "92px";
+
+  const entries = currentFolder.children || [];
+  entries.forEach((entry) => {
+    const entryEl = document.createElement("div");
+    entryEl.className =
+      "flex justify-start items-center flex-col w-16 h-[88px] gap-1 desktop-icon";
+    entryEl.dataset.fmName = entry.name;
+
+    if (explorerState.selectedName === entry.name) {
+      entryEl.classList.add("selected");
+    }
+
+    const iconEl = document.createElement("img");
+    iconEl.src =
+      entry.icon || explorerIconByType[entry.type] || explorerIconByType.file;
+    iconEl.className = "w-6 h-6";
+
+    const labelEl = document.createElement("p");
+    labelEl.className = "text-center m-0 leading-tight";
+    labelEl.style.lineHeight = "1.2";
+    labelEl.style.height = "2.4em";
+    labelEl.style.overflow = "hidden";
+    labelEl.innerText = entry.name;
+
+    entryEl.appendChild(iconEl);
+    entryEl.appendChild(labelEl);
+
+    entryEl.addEventListener("click", () => {
+      explorerState.selectedName = entry.name;
+      renderExplorerFiles();
+    });
+
+    entryEl.addEventListener("dblclick", () => {
+      openExplorerEntry(entry);
+    });
+
+    explorerFileGrid.appendChild(entryEl);
+  });
+}
+
+function navigateExplorerTo(path, options = { pushHistory: true }) {
+  const targetFolder = getExplorerNode(path);
+  if (!targetFolder || targetFolder.type !== "folder") {
+    return;
+  }
+
+  explorerState.path = [...path];
+  explorerState.selectedName = null;
+
+  if (options.pushHistory) {
+    pushExplorerHistory(path);
+  }
+
+  renderExplorerFiles();
+}
+
+function openExplorerToPath(pathText) {
+  makeVisible("explorer");
+  const path = normalizeExplorerPath(pathText || "C:\\");
+  navigateExplorerTo(path);
+}
+
+function openExplorerEntry(entry) {
+  if (entry.type === "folder") {
+    navigateExplorerTo([...explorerState.path, entry.name]);
+    return;
+  }
+
+  if (entry.type === "app" && entry.window) {
+    makeVisible(entry.window);
+    return;
+  }
+
+  const audio = new Audio("./audio/windows-95-error-sound-effect.mp3");
+  audio.play();
+  makeVisible("dummy");
+}
+
+function getSelectedExplorerEntry() {
+  const currentFolder = getExplorerNode(explorerState.path);
+  if (!currentFolder?.children?.length || !explorerState.selectedName) {
+    return null;
+  }
+
+  return (
+    currentFolder.children.find(
+      (entry) => entry.name === explorerState.selectedName,
+    ) || null
+  );
+}
+
+function removeExplorerEntryFromPath(path, entryName) {
+  const folder = getExplorerNode(path);
+  if (!folder?.children) {
+    return null;
+  }
+
+  const index = folder.children.findIndex((entry) => entry.name === entryName);
+  if (index === -1) {
+    return null;
+  }
+
+  return folder.children.splice(index, 1)[0];
+}
+
+function getUniqueExplorerEntryName(folder, baseName) {
+  const existingNames = new Set(
+    (folder.children || []).map((entry) => entry.name),
+  );
+  if (!existingNames.has(baseName)) {
+    return baseName;
+  }
+
+  let copyIndex = 1;
+  let candidate = `${baseName} - Copy`;
+  while (existingNames.has(candidate)) {
+    copyIndex += 1;
+    candidate = `${baseName} - Copy ${copyIndex}`;
+  }
+
+  return candidate;
+}
+
+function handleExplorerToolbarAction(action) {
+  if (!action) {
+    return;
+  }
+
+  if (action === "back") {
+    if (explorerState.historyIndex > 0) {
+      explorerState.historyIndex -= 1;
+      navigateExplorerTo(explorerState.history[explorerState.historyIndex], {
+        pushHistory: false,
+      });
+    }
+    return;
+  }
+
+  if (action === "forward") {
+    if (explorerState.historyIndex < explorerState.history.length - 1) {
+      explorerState.historyIndex += 1;
+      navigateExplorerTo(explorerState.history[explorerState.historyIndex], {
+        pushHistory: false,
+      });
+    }
+    return;
+  }
+
+  if (action === "up") {
+    if (explorerState.path.length > 1) {
+      navigateExplorerTo(explorerState.path.slice(0, -1));
+    }
+    return;
+  }
+
+  const selectedEntry = getSelectedExplorerEntry();
+
+  if (action === "copy") {
+    if (!selectedEntry) {
+      return;
+    }
+    explorerState.clipboard = {
+      mode: "copy",
+      entry: cloneExplorerEntry(selectedEntry),
+      sourcePath: [...explorerState.path],
+      sourceName: selectedEntry.name,
+    };
+    return;
+  }
+
+  if (action === "cut") {
+    if (!selectedEntry) {
+      return;
+    }
+    explorerState.clipboard = {
+      mode: "cut",
+      entry: cloneExplorerEntry(selectedEntry),
+      sourcePath: [...explorerState.path],
+      sourceName: selectedEntry.name,
+    };
+    return;
+  }
+
+  if (action === "paste") {
+    const targetFolder = getExplorerNode(explorerState.path);
+    if (!explorerState.clipboard || !targetFolder?.children) {
+      return;
+    }
+
+    const clipboard = explorerState.clipboard;
+
+    if (clipboard.mode === "copy") {
+      const entryToAdd = cloneExplorerEntry(clipboard.entry);
+      entryToAdd.name = getUniqueExplorerEntryName(
+        targetFolder,
+        entryToAdd.name,
+      );
+      targetFolder.children.push(entryToAdd);
+      explorerState.selectedName = entryToAdd.name;
+      renderExplorerFiles();
+      return;
+    }
+
+    if (clipboard.mode === "cut") {
+      const movedEntry = removeExplorerEntryFromPath(
+        clipboard.sourcePath,
+        clipboard.sourceName,
+      );
+
+      if (!movedEntry) {
+        explorerState.clipboard = null;
+        renderExplorerFiles();
+        return;
+      }
+
+      movedEntry.name = getUniqueExplorerEntryName(
+        targetFolder,
+        movedEntry.name,
+      );
+      targetFolder.children.push(movedEntry);
+      explorerState.selectedName = movedEntry.name;
+      explorerState.clipboard = null;
+      renderExplorerFiles();
+    }
+  }
+}
+
+function initExplorerFileManager() {
+  if (!explorerFileGrid || !explorerAddressInput) {
+    return;
+  }
+
+  renderExplorerFiles();
+
+  explorerAddressInput.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter") {
+      return;
+    }
+
+    const nextPath = normalizeExplorerPath(explorerAddressInput.value);
+    navigateExplorerTo(nextPath);
+  });
+
+  explorerToolbarActions.forEach((actionBtn) => {
+    actionBtn.addEventListener("click", () => {
+      handleExplorerToolbarAction(actionBtn.dataset.fmAction);
+    });
+  });
+}
+
+initExplorerFileManager();
 
 function highlightElement(selectors, clipText, options = {}) {
   const spotlight = document.querySelector(".tour-overlay");
@@ -614,11 +1220,15 @@ const clippyIdleImages = [
   "./images/clippy-idle7.png",
   "./images/clippy-idle9.png",
 ];
+let clippyTypewriterTimeout = null;
+let isClippyCornerMode = false;
+let hasShownClippyJumpscare = false;
+let clippyJumpscareTimeout = null;
 
 const guideList = [
   {
     clippyText:
-      "Welcome! This tour will walk through the major parts of this Windows 95 portfolio.",
+      "Welcome! This tour will walk through the major parts of this Windows 95 About Me site.",
     classes: [".desktop"],
     includeClippyCutout: false,
     clippyOpacity: 0.9,
@@ -632,9 +1242,9 @@ const guideList = [
   },
   {
     clippyText:
-      "These right-side shortcuts open Portfolio, Resume, Projects, and Wolfenstein.",
+      "These right-side shortcuts open About Me, Resume, Projects, and Wolfenstein.",
     classes: [
-      '.desktop-icon[data-windowsrc="portfolio"]',
+      '.desktop-icon[data-windowsrc="about-me"]',
       '.desktop-icon[data-windowsrc="resume"]',
       '.desktop-icon[data-windowsrc="projects"]',
       '.desktop-icon[data-windowsrc="game"]',
@@ -684,9 +1294,9 @@ const guideList = [
   },
   {
     clippyText:
-      "This is your Portfolio window. It is pinned on the taskbar for quick return.",
-    classes: ['[data-title="portfolio"]'],
-    ensureWindow: "portfolio",
+      "This is your About Me window. It is about the creator. It is pinned on the taskbar for quick return.",
+    classes: ['[data-title="about-me"]'],
+    ensureWindow: "about-me",
     clippyImage: "./images/clippy-left.png",
   },
   {
@@ -715,7 +1325,7 @@ const guideList = [
   },
   {
     clippyText:
-      "Tour complete. Use Prev to review, or Restart to play the guide again.",
+      "Tour complete. Use Prev to review this walkthrough.",
     classes: ["#clippy"],
     includeClippyCutout: true,
     closeWindows: ["game"],
@@ -781,10 +1391,18 @@ function clearGuideVisualState() {
 function updateGuideNavButtons() {
   if (!isGuideActive) {
     guidePrevBtn.style.visibility = "hidden";
-    guideNextBtn.innerText = "Restart";
+    guidePrevBtn.style.display = "none";
+    guideNextBtn.style.visibility = "hidden";
+    guideNextBtn.style.display = "none";
+    guideNextBtn.disabled = true;
+    guideNextBtn.innerText = "Done";
     return;
   }
 
+  guidePrevBtn.style.display = "inline-block";
+  guideNextBtn.style.display = "inline-block";
+  guideNextBtn.style.visibility = "visible";
+  guideNextBtn.disabled = false;
   guidePrevBtn.style.visibility = currentIndex === 0 ? "hidden" : "visible";
   guideNextBtn.innerText =
     currentIndex === guideList.length - 1 ? "Finish" : "Next";
@@ -805,7 +1423,7 @@ function endGuide() {
 
   if (clippyTextElement) {
     clippyTextElement.innerText =
-      "Guide finished. Click me for random tips, or click Restart to run the walkthrough again.";
+      "Guide finished. Click me for random tips, but not too much.";
   }
 
   updateGuideNavButtons();
@@ -953,7 +1571,7 @@ if (wasGuideCompleted) {
   document.body.classList.remove("tour-lock");
   if (clippyTextElement) {
     clippyTextElement.innerText =
-      "Guide finished earlier. Click me for random tips, or click Restart to run the walkthrough again.";
+      "Guide finished earlier. Click me for random tips, but not too much.";
   }
   updateGuideNavButtons();
 } else {
@@ -961,9 +1579,120 @@ if (wasGuideCompleted) {
   renderGuideStep();
 }
 
+function setClippyTypewriterText(text, speed = 70) {
+  if (!clippyTextElement) {
+    return;
+  }
+
+  if (clippyTypewriterTimeout) {
+    clearTimeout(clippyTypewriterTimeout);
+    clippyTypewriterTimeout = null;
+  }
+
+  clippyTextElement.innerText = "";
+  let index = 0;
+
+  const typeNext = () => {
+    clippyTextElement.innerText = text.slice(0, index + 1);
+    index += 1;
+
+    if (index < text.length) {
+      clippyTypewriterTimeout = setTimeout(typeNext, speed);
+    } else {
+      clippyTypewriterTimeout = null;
+    }
+  };
+
+  typeNext();
+}
+
+function showClippyJumpscare() {
+  if (hasShownClippyJumpscare) {
+    return;
+  }
+
+  hasShownClippyJumpscare = true;
+  const BSOD_DURATION_MS = 5000;
+  const JUMPSCARE_DURATION_MS = 2200;
+
+  let overlay = document.querySelector("#clippy-jumpscare-overlay");
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.id = "clippy-jumpscare-overlay";
+
+    Object.assign(overlay.style, {
+      position: "fixed",
+      inset: "0",
+      zIndex: "999999999",
+      display: "none",
+      justifyContent: "center",
+      alignItems: "center",
+      background: "#000 url('./images/byod.webp') center center / cover no-repeat",
+      pointerEvents: "none",
+    });
+
+    const image = document.createElement("img");
+    image.src = "./images/clippy-grab-attention.png";
+    image.alt = "Clippy jumpscare";
+    Object.assign(image.style, {
+      width: "140vmax",
+      height: "140vmax",
+      objectFit: "contain",
+      transform: "scale(1.2)",
+      imageRendering: "auto",
+      display: "none",
+    });
+
+    overlay.appendChild(image);
+    document.body.appendChild(overlay);
+  }
+
+  const image = overlay.querySelector("img");
+  if (image) {
+    image.style.display = "none";
+  }
+  overlay.style.background =
+    "#000 url('./images/byod.webp') center center / cover no-repeat";
+
+  overlay.style.display = "flex";
+
+  // Play BYOD sound at the start of the BSOD phase
+  const byodAudio = new Audio("./audio/windows-95-byod-sound-effect.mp3");
+  byodAudio.play().catch(() => {});
+
+  if (clippyJumpscareTimeout) {
+    clearTimeout(clippyJumpscareTimeout);
+  }
+
+  setTimeout(() => {
+    overlay.style.background = "#000";
+    overlay.style.backgroundImage = "none";
+    if (image) {
+      image.style.display = "block";
+      image.style.backgroundColor = "#000";
+    }
+
+    const audio = new Audio("./audio/windows-95-jumpscare-sound-effect.mp3");
+    audio.play().catch(() => {});
+
+    clippyJumpscareTimeout = setTimeout(() => {
+      overlay.style.display = "none";
+      try {
+        window.location.reload();
+      } catch (error) {
+        window.location.href = window.location.href;
+      }
+    }, JUMPSCARE_DURATION_MS);
+  }, BSOD_DURATION_MS);
+}
+
 if (clippyElement) {
   clippyElement.addEventListener("click", (e) => {
     if (isGuideActive) {
+      return;
+    }
+
+    if (isClippyCornerMode) {
       return;
     }
 
@@ -990,7 +1719,6 @@ document.querySelector(".guide-prev-btn").addEventListener("click", (e) => {
 
 document.querySelector(".guide-next-btn").addEventListener("click", (e) => {
   if (!isGuideActive) {
-    restartGuide();
     return;
   }
 
@@ -1034,5 +1762,50 @@ document.addEventListener("click", (e) => {
 window.addEventListener("resize", () => {
   if (isGuideActive) {
     renderGuideStep();
+  }
+});
+let count = 0;
+let clicks = [];
+
+document.querySelector("#clippy").addEventListener("click", (e) => {
+  const hasCompletedTour =
+    localStorage.getItem(TOUR_COMPLETED_KEY) === "true";
+  if (!hasCompletedTour) {
+    return;
+  }
+
+  const now = Date.now();
+
+  clicks.push(now);
+  clicks = clicks.filter((time) => now - time <= 10000);
+  if (clicks.length >= 10) {
+    console.log("Over 10");
+    clicks = [];
+    isClippyCornerMode = true;
+    clippyElement.classList.remove("clippy-top-left", "clippy-top-right");
+
+    const positions = [
+      { top: "auto", right: "40px", bottom: "80px", left: "auto", mode: null },
+      { top: "40px", right: "40px", bottom: "auto", left: "auto", mode: "clippy-top-right" },
+      { top: "40px", right: "auto", bottom: "auto", left: "20px", mode: "clippy-top-left" },
+      { top: "auto", right: "auto", bottom: "80px", left: "20px", mode: null },
+    ];
+
+    const nextPosition = positions[count % positions.length];
+    clippyElement.style.top = nextPosition.top;
+    clippyElement.style.right = nextPosition.right;
+    clippyElement.style.bottom = nextPosition.bottom;
+    clippyElement.style.left = nextPosition.left;
+
+    if (nextPosition.mode) {
+      clippyElement.classList.add(nextPosition.mode);
+    }
+
+    setClippyTypewriterText("STOP CLICKING ME", 30);
+
+    count += 1;
+    if (count === 5) {
+      showClippyJumpscare();
+    }
   }
 });

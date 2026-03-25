@@ -506,6 +506,10 @@ progress::-moz-progress-bar {
     max-width: 250px;
 }
 
+.clippy-text {
+    font-weight: 900;
+}
+
 .bubble::after {
     content: "";
     position: absolute;
@@ -517,7 +521,7 @@ progress::-moz-progress-bar {
 }
 
 #clippy {
-  overflow: visible;
+    overflow: visible;
 }
 
 .bubble::before {
@@ -744,4 +748,36 @@ body {
 
 .tab-content.is-active {
     display: block;
+}
+
+.clippy-top-left {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.clippy-top-left .bubble {
+    bottom: auto;
+    max-width: 300px;
+}
+
+.clippy-top-left .bubble::before,
+.clippy-top-left .bubble::after {
+    display: none;
+}
+
+.clippy-top-right {
+    flex-direction: row-reverse;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.clippy-top-right .bubble {
+    bottom: auto;
+    max-width: 300px;
+}
+
+.clippy-top-right .bubble::before,
+.clippy-top-right .bubble::after {
+    display: none;
 }
