@@ -1334,6 +1334,7 @@ function isTourCompleted() {
 
 const guidePrevBtn = document.querySelector(".guide-prev-btn");
 const guideNextBtn = document.querySelector(".guide-next-btn");
+const guideRestartBtn = document.querySelector(".guide-restart-btn");
 const clippyTextElement = document.querySelector(".clippy-text");
 const clippyElement = document.querySelector("#clippy");
 const clippyImageElement = document.querySelector("#clippy img");
@@ -1360,6 +1361,19 @@ let clippyTypewriterTimeout = null;
 let isClippyCornerMode = false;
 let hasShownClippyJumpscare = false;
 let clippyJumpscareTimeout = null;
+const CLIPPY_CLICK_ME_HINT = "Click me for random tips";
+
+function syncGuideRestartButtonVisibility() {
+  if (!guideRestartBtn || !clippyTextElement) {
+    return;
+  }
+
+  const shouldShowRestart =
+    !isGuideActive &&
+    clippyTextElement.innerText.includes(CLIPPY_CLICK_ME_HINT);
+
+  guideRestartBtn.style.display = shouldShowRestart ? "inline-block" : "none";
+}
 
 const guideList = [
   {
@@ -1427,7 +1441,12 @@ const guideList = [
       "In Settings, you can preview wallpapers and apply a new background.",
     classes: ['[data-title="settings"]'],
     ensureWindow: "settings",
-    windowPosition: { top: "72px", left: "24px", right: "auto", bottom: "auto" },
+    windowPosition: {
+      top: "72px",
+      left: "24px",
+      right: "auto",
+      bottom: "auto",
+    },
     clippyImage: "./images/clippy-up.png",
   },
   {
@@ -1435,7 +1454,12 @@ const guideList = [
       "This is your About Me window. It is about the creator. It is pinned on the taskbar for quick return.",
     classes: ['[data-title="about-me"]'],
     ensureWindow: "about-me",
-    windowPosition: { top: "72px", left: "24px", right: "auto", bottom: "auto" },
+    windowPosition: {
+      top: "72px",
+      left: "24px",
+      right: "auto",
+      bottom: "auto",
+    },
     clippyImage: "./images/clippy-left.png",
   },
   {
@@ -1446,7 +1470,12 @@ const guideList = [
       '[data-title="projects"] .tab-content.is-active',
     ],
     ensureWindow: "projects",
-    windowPosition: { top: "72px", left: "24px", right: "auto", bottom: "auto" },
+    windowPosition: {
+      top: "72px",
+      left: "24px",
+      right: "auto",
+      bottom: "auto",
+    },
     clippyImage: "./images/clippy-left.png",
   },
   {
@@ -1454,7 +1483,12 @@ const guideList = [
       "Resume has a fake nostalgic download flow with a progress bar.",
     classes: ['[data-title="resume"]'],
     ensureWindow: "resume",
-    windowPosition: { top: "72px", left: "24px", right: "auto", bottom: "auto" },
+    windowPosition: {
+      top: "72px",
+      left: "24px",
+      right: "auto",
+      bottom: "auto",
+    },
     clippyImage: "./images/clippy-left.png",
   },
   {
@@ -1462,7 +1496,12 @@ const guideList = [
       "Wolfenstein opens inside this built-in game window for the retro feel.",
     classes: ['[data-title="game"]'],
     ensureWindow: "game",
-    windowPosition: { top: "72px", left: "24px", right: "auto", bottom: "auto" },
+    windowPosition: {
+      top: "72px",
+      left: "24px",
+      right: "auto",
+      bottom: "auto",
+    },
     clippyImage: "./images/clippy-left.png",
   },
   {
@@ -1470,7 +1509,12 @@ const guideList = [
       "Solitaire is also available as a second game window if you want a quick classic break.",
     classes: ['[data-title="game2"]'],
     ensureWindow: "game2",
-    windowPosition: { top: "72px", left: "24px", right: "auto", bottom: "auto" },
+    windowPosition: {
+      top: "72px",
+      left: "24px",
+      right: "auto",
+      bottom: "auto",
+    },
     clippyImage: "./images/clippy-left.png",
   },
   {
@@ -1545,6 +1589,8 @@ function clearGuideVisualState() {
 }
 
 function updateGuideNavButtons() {
+  syncGuideRestartButtonVisibility();
+
   if (!isGuideActive) {
     guidePrevBtn.style.visibility = "hidden";
     guidePrevBtn.style.display = "none";
@@ -1582,6 +1628,7 @@ function endGuide() {
       "Guide finished. Click me for random tips, but not too much.";
   }
 
+  syncGuideRestartButtonVisibility();
   updateGuideNavButtons();
 }
 
@@ -1591,6 +1638,7 @@ function restartGuide() {
   currentIndex = 0;
   activatedGuideSteps.clear();
   closeAllGuideWindows();
+  syncGuideRestartButtonVisibility();
   renderGuideStep();
 }
 
@@ -1609,6 +1657,7 @@ function showRandomClippyTip() {
   }
 
   clippyTextElement.innerText = randomTip;
+  syncGuideRestartButtonVisibility();
   setRandomClippyIdleImage();
 }
 
@@ -1642,9 +1691,16 @@ function applyStepUIState() {
     makeVisible(step.ensureWindow);
 
     if (step.windowPosition) {
-      const card = document.querySelector(`[data-title="${step.ensureWindow}"]`);
+      const card = document.querySelector(
+        `[data-title="${step.ensureWindow}"]`,
+      );
       if (card) {
-        const { top = "auto", right = "auto", bottom = "auto", left = "auto" } = step.windowPosition;
+        const {
+          top = "auto",
+          right = "auto",
+          bottom = "auto",
+          left = "auto",
+        } = step.windowPosition;
         card.style.top = top;
         card.style.right = right;
         card.style.bottom = bottom;
@@ -1841,17 +1897,25 @@ function showClippyJumpscare() {
       image.style.backgroundColor = "#000";
     }
 
-    const audio = new Audio("./audio/windows-95-jumpscare-sound-effect.mp3");
+    const audio = new Audio("./audio/Clippy jumpscare.mp3");
     audio.play().catch(() => {});
 
-    clippyJumpscareTimeout = setTimeout(() => {
+    // clippyJumpscareTimeout = setTimeout(() => {
+    //   overlay.style.display = "none";
+    //   try {
+    //     window.location.reload();
+    //   } catch (error) {
+    //     window.location.href = window.location.href;
+    //   }
+    // }, JUMPSCARE_DURATION_MS);
+    audio.addEventListener("ended", () => {
       overlay.style.display = "none";
       try {
         window.location.reload();
       } catch (error) {
         window.location.href = window.location.href;
       }
-    }, JUMPSCARE_DURATION_MS);
+    });
   }, BSOD_DURATION_MS);
 }
 
@@ -1870,6 +1934,13 @@ if (clippyElement) {
     }
 
     showRandomClippyTip();
+  });
+}
+
+if (guideRestartBtn) {
+  guideRestartBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    restartGuide();
   });
 }
 
