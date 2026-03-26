@@ -1,10 +1,43 @@
 const desktopIcons = document.querySelectorAll(".desktop-icon");
 const menuBar = document.querySelector(".menu-bar");
 const windows = document.querySelectorAll("#window");
-const WOLF3D_URL = "";
-  localStorage.setItem("webos-tour-completed", "true");
-  // location.reload();
+const WOLF3D_URL = "https://git.nihilogic.dk/wolf3d/";
+const SOLITAIRE_URL = "https://leyanlo-minesweeper.netlify.app/";
 
+async function boot_screen() {
+  await delay(20);
+  document.querySelector('.screen-wrapper').style.display = "block";
+  document.querySelector('.boot-img').style.display = "none";
+}
+
+boot_screen()
+
+function safeStorageGet(key) {
+  try {
+    return localStorage.getItem(key);
+  } catch (error) {
+    return null;
+  }
+}
+
+function safeStorageSet(key, value) {
+  try {
+    localStorage.setItem(key, value);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+function safeStorageRemove(key) {
+  try {
+    localStorage.removeItem(key);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+var rightMenu = document.querySelector(".context-menu");
 
 function updateTime() {
   var currentTime = dayjs().format("YYYY-MM-DD HH:mm A");
@@ -20,6 +53,8 @@ function dragElement(elmnt) {
   var initialY = 0;
   var currentX = 0;
   var currentY = 0;
+  var dragDistance = 0;
+  var hasDragged = false;
 
   elmnt.onmousedown = startDragging;
   elmnt.onmouseup = stopDragging;
@@ -39,6 +74,10 @@ function dragElement(elmnt) {
     }
 
     e.preventDefault();
+    dragDistance = 0;
+    hasDragged = false;
+    // console.log(rightMenu)
+
     const placeholder = document.createElement("div");
 
     if (
@@ -75,6 +114,11 @@ function dragElement(elmnt) {
     initialX = e.clientX;
     initialY = e.clientY;
 
+    dragDistance += Math.abs(currentX) + Math.abs(currentY);
+    if (dragDistance > 6) {
+      hasDragged = true;
+    }
+
     let newTop = elmnt.offsetTop - currentY;
     let newLeft = elmnt.offsetLeft - currentX;
 
@@ -99,6 +143,15 @@ function dragElement(elmnt) {
     document.onmouseup = null;
     document.onmousemove = null;
     elmnt.style.zIndex = originalZIndex;
+
+    // Prevent double-click open handlers from firing right after a drag ends.
+    if (elmnt.classList.contains("desktop-icon") && hasDragged) {
+      elmnt.dataset.justDragged = "true";
+      setTimeout(() => {
+        delete elmnt.dataset.justDragged;
+      }, 250);
+    }
+
     if (elmnt.classList.contains("computer-sys")) {
       const trash = trashIcon.getBoundingClientRect();
       const rect = elmnt.getBoundingClientRect();
@@ -205,6 +258,9 @@ document.addEventListener("click", (e) => {
     if (windowName === "game") {
       loadWolf3D();
     }
+    if (windowName === "game2") {
+      loadSolitaire();
+    }
   }
 });
 
@@ -223,9 +279,30 @@ function loadWolf3D(forceReload = false) {
   }
 }
 
+function loadSolitaire(forceReload = false) {
+  const gameFrame = document.querySelector('[data-title="game2"] iframe');
+  if (!gameFrame) {
+    return;
+  }
+
+  const frameSrc = gameFrame.getAttribute("src") || "";
+  const needsLoad =
+    forceReload || frameSrc.trim() === "" || frameSrc === "about:blank";
+
+  if (needsLoad) {
+    gameFrame.setAttribute("src", SOLITAIRE_URL);
+  }
+}
+
 function closeAllGuideWindows() {
   document.querySelectorAll(".card[data-title]").forEach((card) => {
     const title = card.dataset.title;
+
+    // Keep the login window available; guide should start after login.
+    if (title === "login") {
+      return;
+    }
+
     card.style.display = "none";
 
     if (title === "game") {
@@ -297,6 +374,9 @@ function makeVisible(window) {
   if (window === "game") {
     loadWolf3D();
   }
+  if (window === "game2") {
+    loadSolitaire();
+  }
 
   windows.forEach((element) => {
     if (element.style.zIndex == 999999) {
@@ -335,6 +415,10 @@ document.addEventListener("dblclick", async (e) => {
     return;
   }
 
+  if (btn.dataset.justDragged === "true") {
+    return;
+  }
+
   await cursor_wait(2000);
   const explorerPath = btn.dataset.explorerPath;
   if (explorerPath) {
@@ -357,6 +441,12 @@ document.addEventListener("dblclick", async (e) => {
   if (targetWindow === "game") {
     makeVisible("game");
     loadWolf3D(true);
+    return;
+  }
+
+  if (targetWindow === "game2") {
+    makeVisible("game2");
+    loadSolitaire(true);
     return;
   }
 
@@ -389,10 +479,17 @@ document.querySelector(".login-submit").addEventListener("click", async (e) => {
     const audio = new Audio("./audio/windows-95-startup-sound.mp3");
     audio.play();
     await cursor_wait(2000);
-    if (localStorage.getItem("bg")) {
-      document.body.style.backgroundImage = localStorage.getItem("bg");
+    const savedBackground = safeStorageGet("bg");
+    if (savedBackground) {
+      document.body.style.backgroundImage = savedBackground;
     }
     document.querySelector(".desktop").style.display = "block";
+
+    if (isGuideActive) {
+      closeAllGuideWindows();
+      renderGuideStep();
+    }
+
     audio.addEventListener("ended", () => {});
   } else {
     // makeVisible("error");
@@ -506,7 +603,12 @@ document.querySelectorAll(".dummy-btn").forEach((element) => {
 });
 
 document.querySelectorAll("[data-explorer-path]").forEach((element) => {
-  element.addEventListener("click", () => {
+  element.addEventListener("click", (e) => {
+    // Desktop icons should open only on double-click, not single click.
+    if (e.currentTarget.closest(".desktop-icon")) {
+      return;
+    }
+
     const targetPath = element.dataset.explorerPath;
     openExplorerToPath(targetPath);
     menuBar.style.display = "none";
@@ -535,7 +637,7 @@ document.querySelector(".shutdown-btn").addEventListener("click", async (e) => {
 
 document.querySelector(".bg-apply").addEventListener("click", (e) => {
   document.body.style.backgroundImage = `url(${"./images/" + document.querySelector("#bg-select").value})`;
-  localStorage.setItem("bg", document.body.style.backgroundImage);
+  safeStorageSet("bg", document.body.style.backgroundImage);
 });
 
 document.querySelectorAll(".bg-option").forEach((e) => {
@@ -1204,6 +1306,27 @@ const activatedGuideSteps = new Set();
 let isGuideActive = true;
 const TOUR_COMPLETED_KEY = "webos-tour-completed";
 
+function isTourCompleted() {
+  const rawValue = safeStorageGet(TOUR_COMPLETED_KEY);
+  if (rawValue == null) {
+    return false;
+  }
+
+  const normalized = String(rawValue).trim().toLowerCase();
+  if (normalized === "") {
+    safeStorageRemove(TOUR_COMPLETED_KEY);
+    return false;
+  }
+
+  if (normalized === "true") {
+    return true;
+  }
+
+  // Any non-empty invalid value should behave as not completed.
+  safeStorageRemove(TOUR_COMPLETED_KEY);
+  return false;
+}
+
 const guidePrevBtn = document.querySelector(".guide-prev-btn");
 const guideNextBtn = document.querySelector(".guide-next-btn");
 const clippyTextElement = document.querySelector(".clippy-text");
@@ -1236,7 +1359,7 @@ let clippyJumpscareTimeout = null;
 const guideList = [
   {
     clippyText:
-      "Welcome! This tour will walk through the major parts of this Windows 95 About Me site.",
+      "Welcome! This tour will walk through the major parts of this Windows 95 WebOS site.",
     classes: [".desktop"],
     includeClippyCutout: false,
     clippyOpacity: 0.9,
@@ -1250,12 +1373,13 @@ const guideList = [
   },
   {
     clippyText:
-      "These right-side shortcuts open About Me, Resume, Projects, and Wolfenstein.",
+      "These right-side shortcuts open About Me, Resume, Projects, Wolfenstein, and Solitaire.",
     classes: [
       '.desktop-icon[data-windowsrc="about-me"]',
       '.desktop-icon[data-windowsrc="resume"]',
       '.desktop-icon[data-windowsrc="projects"]',
       '.desktop-icon[data-windowsrc="game"]',
+      '.desktop-icon[data-windowsrc="game2"]',
     ],
     clippyImage: "./images/clippy-right.png",
   },
@@ -1330,6 +1454,19 @@ const guideList = [
     classes: ['[data-title="game"]'],
     ensureWindow: "game",
     clippyImage: "./images/clippy-left.png",
+  },
+  {
+    clippyText:
+      "Solitaire is also available as a second game window if you want a quick classic break.",
+    classes: ['[data-title="game2"]'],
+    ensureWindow: "game2",
+    clippyImage: "./images/clippy-left.png",
+  },
+  {
+    clippyText:
+      "Right-click anywhere on the desktop to open the context menu for quick actions like Refresh.",
+    classes: [".desktop", ".context-menu"],
+    clippyImage: "./images/clippy-right.png",
   },
   {
     clippyText: "Tour complete. Use Prev to review this walkthrough.",
@@ -1417,7 +1554,7 @@ function updateGuideNavButtons() {
 
 function endGuide() {
   isGuideActive = false;
-  localStorage.setItem(TOUR_COMPLETED_KEY, "true");
+  safeStorageSet(TOUR_COMPLETED_KEY, "true");
   clearGuideVisualState();
   document.body.classList.remove("tour-lock");
   closeStartMenu();
@@ -1438,7 +1575,7 @@ function endGuide() {
 
 function restartGuide() {
   isGuideActive = true;
-  localStorage.removeItem(TOUR_COMPLETED_KEY);
+  safeStorageRemove(TOUR_COMPLETED_KEY);
   currentIndex = 0;
   activatedGuideSteps.clear();
   closeAllGuideWindows();
@@ -1571,7 +1708,7 @@ function renderGuideStep() {
   updateGuideNavButtons();
 }
 
-const wasGuideCompleted = localStorage.getItem(TOUR_COMPLETED_KEY) === "true";
+const wasGuideCompleted = isTourCompleted();
 if (wasGuideCompleted) {
   isGuideActive = false;
   clearGuideVisualState();
@@ -1582,8 +1719,9 @@ if (wasGuideCompleted) {
   }
   updateGuideNavButtons();
 } else {
-  closeAllGuideWindows();
-  renderGuideStep();
+  clearGuideVisualState();
+  document.body.classList.remove("tour-lock");
+  // Guide is now rendered right after successful login.
 }
 
 function setClippyTypewriterText(text, speed = 70) {
@@ -1776,7 +1914,7 @@ let count = 0;
 let clicks = [];
 
 document.querySelector("#clippy").addEventListener("click", (e) => {
-  const hasCompletedTour = localStorage.getItem(TOUR_COMPLETED_KEY) === "true";
+  const hasCompletedTour = isTourCompleted();
   if (!hasCompletedTour) {
     return;
   }
@@ -1827,4 +1965,89 @@ document.querySelector("#clippy").addEventListener("click", (e) => {
       showClippyJumpscare();
     }
   }
+});
+
+function showCustomContextMenu(x, y) {
+  var rightMenu = document.querySelector(".context-menu");
+  rightMenu.style.display = "block";
+  rightMenu.style.top = y + "px";
+  rightMenu.style.left = x + "px";
+}
+
+document.body.addEventListener("contextmenu", (e) => {
+  e.preventDefault();
+
+  showCustomContextMenu(e.clientX, e.clientY);
+});
+
+window.addEventListener("click", (e) => {
+  if (!rightMenu.contains(e.target)) {
+    rightMenu.style.display = "none";
+  }
+});
+
+async function refresh() {
+  if (refresh.isRunning) {
+    return;
+  }
+
+  refresh.isRunning = true;
+  const screen = document.createElement("div");
+  screen.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.9);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 999999999;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        font-family: 'VT323', monospace;
+        font-size: 1.5rem;
+      `;
+  screen.innerText = "Refreshing desktop icons...";
+  document.body.appendChild(screen);
+
+  requestAnimationFrame(() => {
+    screen.style.opacity = "1";
+  });
+
+  await delay(180);
+
+  desktopIcons.forEach((icon) => {
+    icon.classList.remove("selected", "drag-clicked");
+    delete icon.dataset.justDragged;
+    icon.style.position = "";
+    icon.style.top = "";
+    icon.style.left = "";
+    icon.style.right = "";
+    icon.style.bottom = "";
+    icon.style.margin = "";
+    icon.style.zIndex = "";
+  });
+
+  document.querySelectorAll("#drag-placeholder").forEach((placeholder) => {
+    placeholder.remove();
+  });
+
+  if (rightMenu) {
+    rightMenu.style.display = "none";
+  }
+
+  await delay(120);
+  screen.style.opacity = "0";
+  setTimeout(() => {
+    screen.remove();
+  }, 200);
+  refresh.isRunning = false;
+}
+
+document.querySelector(".refresh-btn").addEventListener("click", (e) => {
+  e.preventDefault();
+  refresh();
 });

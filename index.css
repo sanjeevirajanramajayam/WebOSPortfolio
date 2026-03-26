@@ -327,6 +327,35 @@ button.bg-white:hover {
     /* font-size: 1rem; */
 }
 
+.no-scroll-iframe {
+    display: block;
+    border: 0;
+    overflow: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.no-scroll-iframe::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+.iframe-clip {
+    position: relative;
+    overflow: hidden;
+    line-height: 0;
+    background: #000;
+}
+
+.iframe-clip-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% + 25px);
+    height: calc(100% + 36px);
+}
+
 .card-text {
     font-size: 1.0rem;
     font-weight: 100;
@@ -576,6 +605,50 @@ progress::-moz-progress-bar {
     height: fit-content;
 }
 
+.desktop-icons-full {
+    height: calc(100vh - 48px);
+    padding-bottom: 56px;
+    box-sizing: border-box;
+}
+
+.right-icons {
+    height: fit-content;
+    display: grid !important;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(4, min-content);
+    row-gap: 24px;
+    column-gap: 20px;
+    align-items: start;
+    justify-items: center;
+    direction: rtl;
+}
+
+.right-icons .desktop-icon {
+    direction: ltr;
+}
+
+@media (max-width: 768px) {
+    .desktop-icons-full {
+        gap: 8px;
+        align-items: flex-start;
+    }
+
+    .desktop-icons-full .classic-icons,
+    .desktop-icons-full .right-icons {
+        padding: 8px;
+        gap: 12px;
+    }
+
+    .right-icons {
+        display: grid !important;
+        grid-auto-flow: row;
+        grid-template-rows: none;
+        grid-template-columns: 1fr;
+        row-gap: 12px;
+        column-gap: 0;
+    }
+}
+
 .menu-bar::before,
 body::before {
     content: "";
@@ -781,3 +854,4 @@ body {
 .clippy-top-right .bubble::after {
     display: none;
 }
+
