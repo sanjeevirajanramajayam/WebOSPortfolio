@@ -1928,11 +1928,11 @@ document.addEventListener("click", (e) => {
   }
 });
 
-window.addEventListener("resize", () => {
-  if (isGuideActive) {
-    renderGuideStep();
-  }
-});
+// window.addEventListener("resize", () => {
+//   if (isGuideActive) {
+//     renderGuideStep();
+//   }
+// });
 let count = 0;
 let clicks = [];
 
