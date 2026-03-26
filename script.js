@@ -2,15 +2,20 @@ const desktopIcons = document.querySelectorAll(".desktop-icon");
 const menuBar = document.querySelector(".menu-bar");
 const windows = document.querySelectorAll("#window");
 const WOLF3D_URL = "https://git.nihilogic.dk/wolf3d/";
-const SOLITAIRE_URL = "https://leyanlo-minesweeper.netlify.app/";
+const SOLITAIRE_URL = "https://solitaire95-4b3b8.web.app/";
+const startupAudio = new Audio("./audio/windows-xp-startup.mp3");
+startupAudio.preload = "auto";
 
 async function boot_screen() {
-  await delay(20);
-  document.querySelector('.screen-wrapper').style.display = "block";
-  document.querySelector('.boot-img').style.display = "none";
+  await delay(6000);
+
+  startupAudio.play().catch(() => {});
+
+  document.querySelector(".screen-wrapper").style.display = "block";
+  document.querySelector(".boot-img").style.display = "none";
 }
 
-boot_screen()
+boot_screen();
 
 function safeStorageGet(key) {
   try {
@@ -1422,6 +1427,7 @@ const guideList = [
       "In Settings, you can preview wallpapers and apply a new background.",
     classes: ['[data-title="settings"]'],
     ensureWindow: "settings",
+    windowPosition: { top: "72px", left: "24px", right: "auto", bottom: "auto" },
     clippyImage: "./images/clippy-up.png",
   },
   {
@@ -1429,6 +1435,7 @@ const guideList = [
       "This is your About Me window. It is about the creator. It is pinned on the taskbar for quick return.",
     classes: ['[data-title="about-me"]'],
     ensureWindow: "about-me",
+    windowPosition: { top: "72px", left: "24px", right: "auto", bottom: "auto" },
     clippyImage: "./images/clippy-left.png",
   },
   {
@@ -1439,6 +1446,7 @@ const guideList = [
       '[data-title="projects"] .tab-content.is-active',
     ],
     ensureWindow: "projects",
+    windowPosition: { top: "72px", left: "24px", right: "auto", bottom: "auto" },
     clippyImage: "./images/clippy-left.png",
   },
   {
@@ -1446,6 +1454,7 @@ const guideList = [
       "Resume has a fake nostalgic download flow with a progress bar.",
     classes: ['[data-title="resume"]'],
     ensureWindow: "resume",
+    windowPosition: { top: "72px", left: "24px", right: "auto", bottom: "auto" },
     clippyImage: "./images/clippy-left.png",
   },
   {
@@ -1453,6 +1462,7 @@ const guideList = [
       "Wolfenstein opens inside this built-in game window for the retro feel.",
     classes: ['[data-title="game"]'],
     ensureWindow: "game",
+    windowPosition: { top: "72px", left: "24px", right: "auto", bottom: "auto" },
     clippyImage: "./images/clippy-left.png",
   },
   {
@@ -1460,12 +1470,14 @@ const guideList = [
       "Solitaire is also available as a second game window if you want a quick classic break.",
     classes: ['[data-title="game2"]'],
     ensureWindow: "game2",
+    windowPosition: { top: "72px", left: "24px", right: "auto", bottom: "auto" },
     clippyImage: "./images/clippy-left.png",
   },
   {
     clippyText:
       "Right-click anywhere on the desktop to open the context menu for quick actions like Refresh.",
-    classes: [".desktop", ".context-menu"],
+    classes: [".desktop", ".context-menu", "#clippy"],
+    closeWindows: ["game2"],
     clippyImage: "./images/clippy-right.png",
   },
   {
@@ -1628,6 +1640,17 @@ function applyStepUIState() {
     });
 
     makeVisible(step.ensureWindow);
+
+    if (step.windowPosition) {
+      const card = document.querySelector(`[data-title="${step.ensureWindow}"]`);
+      if (card) {
+        const { top = "auto", right = "auto", bottom = "auto", left = "auto" } = step.windowPosition;
+        card.style.top = top;
+        card.style.right = right;
+        card.style.bottom = bottom;
+        card.style.left = left;
+      }
+    }
   }
 
   const windowsToClose = normalizeSelectors(step.closeWindows);
